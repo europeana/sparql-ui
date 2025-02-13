@@ -3,7 +3,7 @@
   "license": "GPL-2.0+",
   "version": "0.2.0",
   "scripts": {
-    "start": "http-server -o -p 8082",
+    "start": "http-server -o -p 8282",
     "grunt": "grunt",
     "test": "grunt test && npm run browser_test -- $@",
     "browser_test": "grunt browser_test",
