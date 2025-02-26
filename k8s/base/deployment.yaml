@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sparql-ui-deployment
+spec:
+  # selector.matchLabels is provided via Kustomize
+  template:
+    spec:
+      containers:
+        - name: sparql-ui
+          image: europeana/sparql-ui
+          ports:
+            - containerPort: 8282
+          livenessProbe:
+            httpGet:
+              port: 8282
+              path: /
+            initialDelaySeconds: 50
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              port: 8282
+              path: /
+            initialDelaySeconds: 50
+            periodSeconds: 20 
