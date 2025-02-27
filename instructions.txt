@@ -6,7 +6,7 @@ After that install the gui as instructed.
 Create a .npmrc file in the project root with this line: legacy-peer-deps=true
 - install the dependancies: npm install
 - build the app: npm run build
-- install again: npm install
+- install again: npm install (because the "build" script from the package.json triggers "npm install --production" which modifies the node_modules dependencies)
 
 In the custom-config.json override the api.sparql.uri property to be: "https://sparql.europeana.eu/", instead of "https://query.wikidata.org/sparql".
 
@@ -19,4 +19,4 @@ The code is located in the /opt/sparql-ui/sparql-ui dir.
 - clear cache for the app page to see the new changes (here some help https://www.youtube.com/watch?v=vcCpHNp2SkA) 
 
 For the docker, there is also a .dockerignore file, used to tell which files to ignore, like node_modules, that are created by executing commands in the Dockerfile, and therefore
-does not need copying. 
+does not need copying.
