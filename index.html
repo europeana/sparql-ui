@@ -79,18 +79,6 @@
 							</button>
 						</li>
 						<li class="dropdown">
-							<div class="btn-group navbar-btn" id="query-builder-dd">
-								<a target="_blank" href="https://query.wikidata.org/querybuilder/" class="btn btn-default dropdown-toggle query-builder-toggle" id="query-builder-toggle">
-									<span data-i18n="wdqs-app-query-builder-name" id="query-builder-label"></span>
-								</a>
-								<div class="dropdown-menu query-builder">
-									<strong><p data-i18n="wdqs-app-query-builder-dd-title"></p></strong>
-									<p data-i18n="wdqs-app-query-builder-dd-copy"></p>
-									<a class="query-builder-toggle" target="_blank" href="https://query.wikidata.org/querybuilder/"><img src="./wikibase/queryService/ui/304px_querybuilder_final.gif" /></a>
-								</div>
-							</div>
-						</li>
-						<li class="dropdown">
 							<div class="btn-group navbar-btn">
 								<a href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:SPARQL_query_service/Wikidata_Query_Help" target="_blank" class="btn btn-default">
 									<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> <span data-i18n="wdqs-app-button-help" id="help-label"></span>
@@ -99,38 +87,17 @@
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li><a target="_blank" rel="noopener" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:SPARQL_query_service/Wikidata_Query_Help" data-i18n="wdqs-app-help-portal"></a></li>
-									<li><a target="_blank" rel="noopener" href="https://www.mediawiki.org/wiki/Special:MyLanguage/Wikidata_Query_Service/User_Manual" data-i18n="wdqs-app-help-manual"></a></li>
-									<li><a target="_blank" rel="noopener" id="examples-link" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:SPARQL_query_service/queries/examples" data-i18n="wdqs-app-help-examples"></a></li>
+									<li><a target="_blank" href="https://europeana.atlassian.net/wiki/spaces/EF/pages/2385870903/SPARQL+API+Documentation">Documentation</a></li>
+									<li><a target="_blank" id="examples-link" href="#">Example Queries</a></li>
+									<li><a target="_blank" href="https://europeana.atlassian.net/wiki/spaces/EF/pages/2360508417">FAQ</a></li>
 									<li role="separator" class="divider"></li>
 									<li><a target="_blank" rel="noopener" href="https://www.w3.org/TR/sparql11-query/">SPARQL</a></li>
-									<li><a target="_blank" rel="noopener" href="https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/Indexing/RDF_Dump_Format" data-i18n="wdqs-app-help-datamodel"></a></li>
-									<li><a target="_blank" rel="noopener" href="https://www.mediawiki.org/wiki/Special:MyLanguage/Wikibase/Indexing/RDF_Dump_Format#Full_list_of_prefixes" data-i18n="wdqs-app-help-prefixes"></a></li>
+									<li><a target="_blank" href="https://pro.europeana.eu/page/edm-documentation">EDM Data Model</a></li>
+									<li><a target="_blank" href="#">EDM Prefixes, classes and properties</a></li>
 									<li role="separator" class="divider"></li>
-									<li><a target="_blank" rel="noopener" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:Request_a_query" data-i18n="wdqs-app-help-request-query"></a></li>
-									<li><a target="_blank" rel="noopener" href="https://www.mediawiki.org/w/index.php?title=Talk:Wikidata_Query_Service&action=edit&section=new" data-i18n="wdqs-app-help-feedback"></a></li>
-									<li><a target="_blank" rel="noopener" id="copyright-link" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:SPARQL_query_service/Copyright" data-i18n="wdqs-app-help-copy"></a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="dropdown">
-							<div class="btn-group navbar-btn">
-								<a href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:Tools" target="_blank" class="btn btn-default">
-									<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <span data-i18n="wdqs-app-button-more-tools" id="tools-label"></span>
-								</a>
-								<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" id="tools-toggle">
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a target="_blank" rel="noopener" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:Tools/Edit_items" data-i18n="wdqs-app-tools-edit-items"></a></li>
-									<li><a target="_blank" rel="noopener" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:Tools/Query_data" data-i18n="wdqs-app-tools-query-data"></a></li>
-									<li><a target="_blank" rel="noopener" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:Tools/Enhance_user_interface" data-i18n="wdqs-app-tools-enhance-ui"></a></li>
-									<li><a target="_blank" rel="noopener" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:Tools/Visualize_data" data-i18n="wdqs-app-tools-visualize-data"></a></li>
-									<li><a target="_blank" rel="noopener" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:List_of_properties" data-i18n="wdqs-app-tools-list-properties"></a></li>
-									<li><a target="_blank" rel="noopener" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:Tools/Lexicographical_data" data-i18n="wdqs-app-tools-lexicographical-data"></a></li>
-									<li><a target="_blank" rel="noopener" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:Tools/For_programmers" data-i18n="wdqs-app-tools-for-programmers"></a></li>
-									<li role="separator" class="divider"></li>
-									<li><a target="_blank" rel="noopener" href="https://tools.wmflabs.org/hay/directory/#/search/wikidata">Wikimedia Toolforge</a></li>
+									<li><a target="_blank" href="https://europeana.atlassian.net/servicedesk/customer/portal/8">Request a query</a></li>
+									<li><a target="_blank" href='mailto:api@europeana.eu?subject="Feedback for the SPARQL console"'>Give us Feedback!</a></li>
+									<li><a target="_blank" href="https://www.europeana.eu/rights/terms-of-use">Terms of Use</a></li>
 								</ul>
 							</div>
 						</li>
@@ -186,9 +153,6 @@
 								<div>
 									<a href="#" class="btn" id="clear-button" data-toggle="tooltip" data-placement="top" data-i18n="[title]wdqs-app-button-clear-title"> <span class="fa fa-trash-o" aria-hidden="true"></span>
 									</a>
-								</div>
-								<div>
-									<a href="#" class="btn shareQuery shortUrlTrigger query" target="_blank" data-i18n="[title]wdqs-app-shorturl-page-title" data-toggle="popover"> <span class="fa fa-link" aria-hidden="true"></span></a>
 								</div>
 							</div>
 							<div class="toolbar-bottom">

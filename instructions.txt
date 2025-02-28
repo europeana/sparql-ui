@@ -4,6 +4,11 @@ After that install the gui as instructed.
 
 ### build the app (not required for starting the app after a code change)
 Create a .npmrc file in the project root with this line: legacy-peer-deps=true
+1. way (preffered and faster)
+- npm install
+- npm run only_build
+
+2. way
 - install the dependancies: npm install
 - build the app: npm run build
 - install again: npm install (because the "build" script from the package.json triggers "npm install --production" which modifies the node_modules dependencies)
