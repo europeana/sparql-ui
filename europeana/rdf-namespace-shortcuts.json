@@ -3,6 +3,7 @@
 		"edm": "http://www.europeana.eu/schemas/edm/"
 	},
 	"W3C": {
+		"dcat": "http://www.w3.org/TR/vocab-dcat/",
 		"dqv": "http://www.w3.org/ns/dqv#",
 		"odrl": "http://www.w3.org/ns/odrl/2/",
 		"owl": "http://www.w3.org/2002/07/owl#",
