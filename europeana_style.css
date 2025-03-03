@@ -1,0 +1,8 @@
+.banner_europeana {
+  background-color: #447ff5;
+  border: 1px solid #c8ccd1;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

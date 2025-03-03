@@ -100,17 +100,22 @@ wikibase.queryService.ui.dialog.QueryExampleDialog = ( function( $ ) {
 			$( banner ).insertAfter( '.exampleTable' );
 		}
 
-		var bannerContent = $( '<span>' )
-			.attr( 'data-i18n', '[html]wdqs-app-query-builder-example-banner-content' )
-			.addClass( 'wdqs-app-query-builder-banner-content' )
-			.html( 'You can create queries without having to write SPARQL in the <a>Query Builder</a>' );
-		new wikibase.queryService.ui.Banner(
-			'queryBuilderExampleDialog',
-			renderBanner,
-			onBannerDismiss,
-			true,
-			bannerContent
-		);
+
+		if(!this._wikibaseApi._sparqlUri.includes("europeana.eu")) {
+			//create banner only for the NON europeana sparql uri
+			var bannerContent = $( '<span>' )
+					.attr( 'data-i18n', '[html]wdqs-app-query-builder-example-banner-content' )
+					.addClass( 'wdqs-app-query-builder-banner-content' )
+					.html( 'You can create queries without having to write SPARQL in the <a>Query Builder</a>' );
+					
+			new wikibase.queryService.ui.Banner(
+				'queryBuilderExampleDialog',
+				renderBanner,
+				onBannerDismiss,
+				true,
+				bannerContent
+			);
+		}
 
 		var self = this;
 		this._$element.focus( function() {

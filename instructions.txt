@@ -25,3 +25,7 @@ The code is located in the /opt/sparql-ui/sparql-ui dir.
 
 For the docker, there is also a .dockerignore file, used to tell which files to ignore, like node_modules, that are created by executing commands in the Dockerfile, and therefore
 does not need copying.
+
+### When modifying the source code please note that the code is written in a way to support both the "wikidata.org" and "europeana.eu" sparql-ui, which is decided by the propery 
+api.sparql.uri in the default-config.json which is iverriden by the custom-config.json. So please note when you change the code, to have that in mind, and e.g. if some ui elements 
+are to be changed for the "europeana.eu", check first if the sparqlUri.includes("europeana.eu"), as we did so far.
