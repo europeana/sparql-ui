@@ -1,201 +1,545 @@
-[
-	{
-		"id": "edm:Agent"
-		, "label": "Agent"
-	}
-, 	{
-		"id": "edm:EuropeanaAggregation"
-	}
-, 	{
-		"id": "edm:EuropeanaObject"
-		, "label": "Europeana Object"
-		, "reference": "http://pro.europeana.eu/edm-documentation"
-		, "description": "Any object that is the result of Europeana’s activities"
-	}
-, 	{
-		"id": "edm:Event"
-		, "label": "Event"
-		, "description": "An event is a change \"of states in cultural, social or physical systems,\n regardless of scale, brought about by a series or group of coherent physical,\ncultural, technological or legal phenomena\" (E5 Event in CIDOC CRM) or a \"set of coherent phenomena or cultural manifestations bounded in time and  space\" (E4 Period in CIDOC CRM)\n"
-	}
-, 	{
-		"id": "edm:InformationResource"
-		, "label": "Information Resource"
-		, "description": "An information resource is a resource whose essential characteristics can be conveyed in a single message. It can be associated with a URI, it can have a representation, for example: a text is an InformationResource."
-	}
-, 	{
-		"id": "edm:NonInformationResource"
-		, "label": "Non-Information Resource"
-		, "description": "All resources that are not information resources."
-	}
-, 	{
-		"id": "edm:PhysicalThing"
-		, "label": "Physical Thing"
-		, "description": "A persistent physical item such as a painting, a building, a book or a stone.\nPersons are not items. This class represents Cultural Heritage Objects known to Europeana to be physical things (such as Mona Lisa) as well as all physical things Europeana refers to in the descriptions of Cultural Heritage Objects (such as the Rosetta Stone)."
-	}
-, 	{
-		"id": "edm:Place"
-		, "label": "Place"
-		, "description": "An \"extent in space, in particular on the surface of the earth, in the pure sense of physics: independent from temporal phenomena and matter\" (CIDOC CRM)"
-	}
-, 	{
-		"id": "edm:ProvidedCHO"
-		, "label": "Provided CHO"
-		, "description": "This class comprises the Cultural Heritage objects that Europeana collects descriptions about."
-	}
-, 	{
-		"id": "edm:TimeSpan"
-		, "label": "Time Span"
-		, "description": "The class of \"abstract temporal extents, in the sense of Galilean physics,\n having a beginning, an end and a duration\" (CIDOC CRM)"
-	}
-, 	{
-		"id": "edm:WebResource"
-		, "label": "Web Resource"
-		, "description": "Information Resources that have at least one Web Representation and at least\na URI."
-	}
-, 	{
-		"id": "edm:aggregatedCHO"
-		, "label": "Aggregated Cultural Heritage Object"
-		, "description": "This property associates an ORE aggregation with the cultural heritage object(s) (CHO for short) it is about."
-	}
-, 	{
-		"id": "edm:begin"
-		, "label": "Begin"
-		, "description": "This property denotes the start date of a period of time."
-	}
-, 	{
-		"id": "edm:datasetName"
-		, "label": "Dataset Name"
-		, "description": "This property holds the identifier given to the dataset in Europeana."
-	}
-, 	{
-		"id": "edm:currentLocation"
-		, "label": "Current Location"
-		, "description": "The geographic location and/or name of the repository, building, site, or other entity whose boundaries presently include the resource."
-	}
-, 	{
-		"id": "edm:end"
-		, "label": "End"
-		, "description": "This property denotes the end date of a period of time."
-	}
-, 	{
-		"id": "edm:europeanaProxy"
-		, "label": "Europeana Proxy"
-		, "description": "This property serves only as a flag to indicate that a proxy is a Europeana proxy (as opposed to a provider proxy).  It is for internal use only."
-	}
-, 	{
-		"id": "edm:happenedAt"
-		, "label": "Happened At"
-		, "description": "This property associates an event with the place at which the event\nhappened."
-	}
-, 	{
-		"id": "edm:hasType"
-		, "label": "Has Type"
-		, "description": "This property relates a resource with the concepts it belongs to in a suitable\ntype system such as MIME or any thesaurus that captures categories of objects in a given field (e.g., the “Objects” facet in Getty’s Art and Architecture Thesaurus). It does not capture aboutness."
-	}
-, 	{
-		"id": "edm:hasView"
-		, "label": "Has View"
-		, "description": "This property relates a ORE aggregation about a CHO with a web resource\nproviding a view of that CHO. Examples of view are: a thumbnail, a textual\nabstract and a table of contents. The ORE aggregation may be a Europeana\nAggregation, in which case the view is an object owned by Europeana (i.e., an instance of edm:EuropeanaObject) or an aggregation contributed by a content provider. In order to capture both these cases, the domain of edm:hasView is ore:Aggregation and its range is edm:WebResource"
-	}
-, 	{
-		"id": "edm:incorporates"
-		, "label": "Incorporates"
-		, "description": "This property captures the use of some resource to add value to another\nresource. Such resources may be nested, such as performing a theater play text, and then recording the performance, or creating an artful edition of a collection of poems or just aggregating various poems in an anthology. There may be no single part that contains ultimately the incorporated object, which may be dispersed in the presentation. Therefore, incorporated resources do in general not form proper parts. Incorporated resources are not part of the same resource, but are taken from other resources, and have an independent history. Therefore edm:incorporates is not a sub-property of dcterm:hasPart."
-	}
-, 	{
-		"id": "edm:isAnnotationOf"
-		, "label": "Is Annotation Of"
-		, "description": "This property relates an annotation (a Europeana object) with the resource\nthat it annotates."
-	}
-, 	{
-		"id": "edm:isNextInSequence"
-		, "label": "Is Next In Sequence Of"
-		, "description": "edm:isNextInSequence relates two resources S and R that are ordered parts of the same resource A, and such that S comes immediately after R in the order created by their being parts of A."
-	}
-, 	{
-		"id": "edm:isRepresentationOf"
-		, "label": "Is Representation Of"
-		, "description": "This property associates an information resource to the resource (if any) that it represents"
-	}
-, 	{
-		"id": "edm:isSuccessorOf"
-		, "label": "Is Successor Of"
-		, "description": "This property captures the relation between the continuation of a resource and that resource. This applies to a story, a serial, a journal etc. No content of the successor resource is identical or has a similar form with that of the precursor. The similarity is only in the context, subjects and figures of a plot. Successors typically form part of a common whole – such as a trilogy, a journal, etc."
-	}
-, 	{
-		"id": "edm:landingPage"
-		, "label": "Landing Page"
-		, "description": "This property captures the relation between a Europeana aggregation representing a cultural heritage object and a (reference) Web resource giving access to that object. Europeana provides the value for this property."
-	}
-, 	{
-		"id": "edm:occurredAt"
-		, "label": "Occured At"
-		, "description": "This property associates an event to the smallest known time span that\noverlaps with the occurrence of that event"
-	}
-, 	{
-		"id": "edm:preview"
-		, "label": "Preview"
-		, "description": "The URL of a thumbnail representing the digital object, generated by Europeana."
-	}
-, 	{
-		"id": "edm:realizes"
-		, "label": "Realizes"
-		, "description": "This property describes a relation between a physical thing and the information resource that is contained in it, visible at it or otherwise carried by it, if applicable."
-	}
-, 	{
-		"id": "edm:wasPresentAt"
-		, "label": "Was Present At"
-		, "description": "This property associates the people, things or information resources with an event at which they were present"
-	}
-, 	{
-		"id": "edm:isShownAt"
-		, "label": "Is Shown At"
-		, "description": "An unambiguous URL reference to the digital object on the provider’s web site in its full information context."
-	}
-, 	{
-		"id": "edm:isShownBy"
-		, "label": "Is Shown By"
-		, "description": "An unambiguous URL reference to the digital object on the provider’s web site in the best available resolution/quality."
-	}
-, 	{
-		"id": "edm:object"
-		, "label": "Object"
-		, "description": "The URL of a thumbnail representing the digital object or, if there is no such\nthumbnail, the URL of the digital object in the best resolution available on the\nweb site of the data provider from which a thumbnail could be generated. This will often be the same URL as given in edm:isShownBy."
-	}
-, 	{
-		"id": "edm:rights"
-		, "label": "Standardized Rights Statement"
-		, "description": "Information about copyright, usage and access rights of the digital objects in Europeana that represent the source cultural heritage object described in the data."
-	}
-, 	{
-		"id": "edm:type"
-		, "label": "Europeana Type"
-		, "description": "The Europeana material type of the resource"
-	}
-, 	{
-		"id": "edm:ugc"
-		, "label": "UGC"
-		, "description": "This element is used to identify user generated content (also called user created content).  It should be applied to all digitised or born digital content contributed by the general public and collected by Europeana through a crowdsourcing initiative or project."
-	}
-, 	{
-		"id": "skos:Concept"
-	}
-, 	{
-		"id": "ore:Aggregation"
-	}
-, 	{
-		"id": "ore:Proxy"
-	}
-, 	{
-		"id": "dcat:Dataset"
-	}
-, 	{
-		"id": "cc:License"
-	}
-, 	{
-		"id": "cc:License"
-	}
-, 	{
-		"id": "svcs:Service"
-	}
-]
+[ {
+  "id" : "cc:License",
+  "label" : "License",
+  "description" : "A set of requests/permissions to users of a Work, e.g. a copyright license, the public domain, information for distributors."
+}, {
+  "id" : "cc:deprecatedOn",
+  "label" : "deprecated on",
+  "description" : "The date that the license expires, as it has been described, which implies among other things the expiration of the restrictions specified by the license."
+}, {
+  "id" : "dc:contributor",
+  "label" : "contributor",
+  "description" : "An entity responsible for making contributions to the resource"
+}, {
+  "id" : "dc:coverage",
+  "label" : "coverage",
+  "description" : "The spatial or temporal topic of the resource, the spatial applicability of the resource, or the jurisdiction under which the resource is relevant. This may be a named place, a location, a spatial coordinate, a period, date, date range or a named administrative entity."
+}, {
+  "id" : "dc:creator",
+  "label" : "creator",
+  "description" : "An entity primarily responsible for making the resource. This may be a person, organisation or a service."
+}, {
+  "id" : "dc:date",
+  "label" : "date",
+  "description" : "A point or period of time associated with an event in the lifecycle of the resource."
+}, {
+  "id" : "dc:description",
+  "label" : "description",
+  "description" : "An account of the resource"
+}, {
+  "id" : "dc:format",
+  "label" : "format",
+  "description" : "The file format, physical medium or dimensions of the resource"
+}, {
+  "id" : "dc:identifier",
+  "label" : "identifier",
+  "description" : "An unambiguous reference to the resource within a given context"
+}, {
+  "id" : "dc:language",
+  "label" : "language",
+  "description" : "A language of the resource"
+}, {
+  "id" : "dc:publisher",
+  "label" : "published",
+  "description" : "An entity responsible for making the resource available. Examples of a publisher include a person, an organisation and a service."
+}, {
+  "id" : "dc:relation",
+  "label" : "relation",
+  "description" : "A related resource. The recommended best practice is to identify the resource using a formal identification scheme."
+}, {
+  "id" : "dc:rights",
+  "label" : "rights",
+  "description" : "Information about rights held in and over the resource. Examples are the name of the rights holder of the resource or more general rights information."
+}, {
+  "id" : "dc:source",
+  "label" : "source",
+  "description" : "A related resource from which the described resource is derived in whole or in part"
+}, {
+  "id" : "dc:subject",
+  "label" : "subject",
+  "description" : "The topic of the resource."
+}, {
+  "id" : "dc:title",
+  "label" : "title",
+  "description" : "A name given to the resource. Typically, a Title will be a name by which the resource is formally known."
+}, {
+  "id" : "dc:type",
+  "label" : "object type",
+  "description" : "The nature or genre of the resource. Type includes terms describing general categories, functions, genres, or aggregation levels for content."
+}, {
+  "id" : "dcat:Dataset",
+  "label" : "Dataset",
+  "description" : "A collection of data, published or curated by a single agent, and available for access or download in one or more formats."
+}, {
+  "id" : "dcterms:alternative",
+  "label" : "alternative title",
+  "description" : "An alternative name for the resource. This can be any form of the title that is used as a substitute or an alternative to the formal title of the resource including abbreviations or translations of the title."
+}, {
+  "id" : "dcterms:conformsTo",
+  "label" : "conforms to",
+  "description" : "An established standard to which the described resource conforms"
+}, {
+  "id" : "dcterms:created",
+  "label" : "created",
+  "description" : "Date of creation of the resource."
+}, {
+  "id" : "dcterms:extent",
+  "label" : "extent",
+  "description" : "The size or duration of the resource."
+}, {
+  "id" : "dcterms:hasFormat",
+  "label" : "has format",
+  "description" : "A related resource that is substantially the same as the pre-existing described resource, but in another format."
+}, {
+  "id" : "dcterms:hasPart",
+  "label" : "has part",
+  "description" : "A related resource that is included either physically or logically in the described resource."
+}, {
+  "id" : "dcterms:hasVersion",
+  "label" : "has version",
+  "description" : "A related resource that is a version, edition, or adaptation of the described resource. Changes in version imply substantive changes in content rather than differences in format."
+}, {
+  "id" : "dcterms:isFormatOf",
+  "label" : "is a format of",
+  "description" : "A related resource that is substantially the same as the described resource, but in another format."
+}, {
+  "id" : "dcterms:isPartOf",
+  "label" : "is part of",
+  "description" : "A related resource in which the described resource is physically or logically included"
+}, {
+  "id" : "dcterms:isReferencedBy",
+  "label" : "is referenced by",
+  "description" : "A related resource that references, cites, or otherwise points to the described resource"
+}, {
+  "id" : "dcterms:isReplacedBy",
+  "label" : "is replaced by",
+  "description" : "A related resource that supplants, displaces, or supersedes the described resource."
+}, {
+  "id" : "dcterms:isRequiredBy",
+  "label" : "is required by",
+  "description" : "A related resource that requires the described resource to support its function, delivery or coherence."
+}, {
+  "id" : "dcterms:isVersionOf",
+  "label" : "is version of",
+  "description" : "A related resource of which the described resource is a version, edition, or adaptation. Changes in version imply substantive changes in content rather than differences in format."
+}, {
+  "id" : "dcterms:issued",
+  "label" : "issued",
+  "description" : "Date of formal issuance (e.g., publication) of the resource."
+}, {
+  "id" : "dcterms:medium",
+  "label" : "medium",
+  "description" : "The material or physical carrier of the resource."
+}, {
+  "id" : "dcterms:provenance",
+  "label" : "provenance",
+  "description" : "A statement of any changes in ownership and custody of the resource since its creation that are significant for its authenticity, integrity and interpretation. This may include a description of any changes successive custodians made to the resource."
+}, {
+  "id" : "dcterms:references",
+  "label" : "references",
+  "description" : "A related resource that is referenced, cited, or otherwise pointed to by the described resource."
+}, {
+  "id" : "dcterms:replaces",
+  "label" : "replaces",
+  "description" : "A related resource that is supplanted, displaced, or superseded by the described resource."
+}, {
+  "id" : "dcterms:requires",
+  "label" : "requires",
+  "description" : "A related resource that is required by the described resource to support its function, delivery or coherence."
+}, {
+  "id" : "dcterms:spatial",
+  "label" : "spatial",
+  "description" : "Spatial characteristics of the resource."
+}, {
+  "id" : "dcterms:tableOfContents",
+  "label" : "table of contents",
+  "description" : "A list of subunits of the resource."
+}, {
+  "id" : "dcterms:temporal",
+  "label" : "temporal coverage",
+  "description" : "Temporal characteristics of the resource."
+}, {
+  "id" : "doap:implements",
+  "label" : "implements",
+  "description" : "A specification that a project implements. Could be a standard, API or legally defined level of conformance. In IIIF doap:implements refers to the the protocol implemented in IIIF."
+}, {
+  "id" : "ebucore:audiochannelNumber",
+  "label" : "audio channels",
+  "description" : "The total number of audio channels contained in the MediaResource."
+}, {
+  "id" : "ebucore:bitRate",
+  "label" : "bitrate",
+  "description" : "To provide the bitrate at which the MediaResource can be played in kilobits/second."
+}, {
+  "id" : "ebucore:duration",
+  "label" : "duration",
+  "description" : "The duration of a media file in ms"
+}, {
+  "id" : "ebucore:fileByteSize",
+  "label" : "bytesize of the file",
+  "description" : "The size of a media file in bytes"
+}, {
+  "id" : "ebucore:frameRate",
+  "label" : "frame rate",
+  "description" : "The frame rate of the video signal in frame per second."
+}, {
+  "id" : "ebucore:hasMimeType",
+  "label" : "mime type",
+  "description" : "The main MIME type as defined by IANA: e.g. image/jpeg"
+}, {
+  "id" : "ebucore:height",
+  "label" : "height",
+  "description" : "The height of a media file in pixels"
+}, {
+  "id" : "ebucore:orientation",
+  "label" : "orientation",
+  "description" : "The orientation of a Document or an Image i.e. landscape or portrait."
+}, {
+  "id" : "ebucore:sampleRate",
+  "label" : "sample rate",
+  "description" : "The frequency at which audio is sampled per second. Also called sampling rate."
+}, {
+  "id" : "ebucore:sampleSize",
+  "label" : "sample size",
+  "description" : "The size of an audio sample in bits. Also called bit depth."
+}, {
+  "id" : "ebucore:width",
+  "label" : "width",
+  "description" : "The width of a media file in pixels"
+}, {
+  "id" : "edm:Agent",
+  "label" : "Agent",
+  "description" : "This class comprises people, either individually or in groups, who have the potential to perform intentional actions for which they can be held responsible."
+}, {
+  "id" : "edm:EuropeanaAggregation",
+  "label" : "Europeana Aggregation",
+  "description" : "The set of resources related to a single cultural heritage object that collectively represents that object in Europeana. Such set consists of: all descriptions about the object that Europeana collects from (possibly different) content providers, including thumbnails and other forms of abstractions, as well as of the description of the object Europeana builds."
+}, {
+  "id" : "edm:FullTextResource",
+  "label" : "Full-text Resource",
+  "description" : "A resource that has machine readable full-text content."
+}, {
+  "id" : "edm:Place",
+  "label" : "Place",
+  "description" : "An extent in space, in particular on the surface of the earth, in the pure sense of physics: independent from temporal phenomena and matter"
+}, {
+  "id" : "edm:ProvidedCHO",
+  "label" : "Provided Cultural Heritage Object",
+  "description" : "This class includes the Cultural Heritage objects that Europeana collects descriptions about."
+}, {
+  "id" : "edm:TimeSpan",
+  "label" : "Time Span",
+  "description" : "The class of abstract temporal extents, in the sense of Galilean physics, having a beginning, an end and a duration"
+}, {
+  "id" : "edm:WebResource",
+  "label" : "Web Resource",
+  "description" : "Information Resources that have at least one Web Representation and at least a URI."
+}, {
+  "id" : "edm:aggregatedCHO",
+  "label" : "aggregated Cultural Heritage Object",
+  "description" : "This property associates an ORE aggregation with the cultural heritage object(s) it is about."
+}, {
+  "id" : "edm:begin",
+  "label" : "begin",
+  "description" : "This property denotes the start date of a period of time."
+}, {
+  "id" : "edm:codecName",
+  "label" : "codec name",
+  "description" : "The name of a device or computer program capable of encoding or decoding a digital data stream or signal, e.g. \"h264\""
+}, {
+  "id" : "edm:componentColor",
+  "label" : "component color",
+  "description" : "A significant color present in an image. The colors are taken from the CSS3 standard color palette and are expressed as a hexadecimal binary value."
+}, {
+  "id" : "edm:country",
+  "label" : "country",
+  "description" : "The name of the country in which the Provider is based or “Europe” in the case of Europe-wide projects."
+}, {
+  "id" : "edm:currentLocation",
+  "label" : "current location",
+  "description" : "The geographic location and/or name of the repository, building, site, or other entity whose boundaries presently include the resource."
+}, {
+  "id" : "edm:dataProvider",
+  "label" : "data provider",
+  "description" : "The name of the data provider of the object (i.e. the organisation providing data to an aggregator)."
+}, {
+  "id" : "edm:datasetName",
+  "label" : "dataset name",
+  "description" : "This property holds the identifier given to the dataset in Europeana."
+}, {
+  "id" : "edm:end",
+  "label" : "end",
+  "description" : "This property denotes the end date of a period of time."
+}, {
+  "id" : "edm:europeanaProxy",
+  "label" : "europeana proxy",
+  "description" : "This property serves only as a flag to indicate that a proxy is a Europeana proxy (as opposed to a provider proxy)."
+}, {
+  "id" : "edm:hasColorSpace",
+  "label" : "colour space",
+  "description" : "Whether an image is a coloured image."
+}, {
+  "id" : "edm:hasMet",
+  "label" : "has met",
+  "description" : "edm:hasMet relates a resource with the objects or phenomena that have happened to or have happened together with the resource under consideration. We can abstractly think of history and the present as a series of “meetings” between people and other things in space-time. Therefore we name this relationship as the things the object “has met” in the course of its existence. These meetings are events in the proper sense, in which other people and things participate in any role."
+}, {
+  "id" : "edm:hasType",
+  "label" : "has type",
+  "description" : "This property relates a resource with the concepts it belongs to in a suitable type system such as MIME or any thesaurus that captures categories of objects in a given field (e.g., the “Objects” facet in Getty’s Art and Architecture Thesaurus). It does not capture aboutness."
+}, {
+  "id" : "edm:hasView",
+  "label" : "has view",
+  "description" : "This property relates a ORE aggregation about a CHO with a web resource providing a view of that CHO. Examples of view are: a thumbnail, a textual abstract and a table of contents. The ORE aggregation may be a Europeana aggregation, in which case the view is an object owned by Europeana (i.e., an instance of edm:EuropeanaObject) or an aggregation contributed by a content provider. In order to capture both these cases, the domain of edm:hasView is ore:Aggregation and its range is edm:WebResource."
+}, {
+  "id" : "edm:incorporates",
+  "label" : "Incorporates",
+  "description" : "This property captures the use of some resource to add value to another resource. Such resources may be nested, such as performing a theater play text, and then recording the performance, or creating an artful edition of a collection of poems or just aggregating various poems in an anthology. There may be no single part that contains ultimately the incorporated object, which may be dispersed in the presentation. Therefore, incorporated resources do in general not form proper parts. Incorporated resources are not part of the same resource, but are taken from other resources, and have an independent history. Therefore edm:incorporates is not a sub-property of dcterms:hasPart."
+}, {
+  "id" : "edm:intermediateProvider",
+  "label" : "intermediate provider",
+  "description" : "The name of the intermediate organization that selects, collates, or curates data from a Data Provider that is then aggregated by a Provider from which Europeana aggregates. The Intermediate Provider is distinct from both the Data Provider and the Provider in the data supply chain."
+}, {
+  "id" : "edm:isDerivativeOf",
+  "label" : "is derivated of",
+  "description" : "This property captures a narrower notion of derivation than edm:isSimilarTo, in the sense that it relates a resource to another one, obtained by reworking, reducing, expanding, parts or the whole contents of the former, and possibly adding some minor parts"
+}, {
+  "id" : "edm:isNextInSequence",
+  "label" : "is next in sequence",
+  "description" : "edm:isNextInSequence relates two resources S and R that are ordered parts of the same resource A, and such that S comes immediately after R in the order created by their being parts of A"
+}, {
+  "id" : "edm:isRelatedTo",
+  "label" : "is related to",
+  "description" : "edm:isRelatedTo is the most general contextual property in EDM. Contextual properties have typically to do either with the things that have happened to or together with the object under consideration, or what the object refers to by its shape, form or features in a figural or encoded form. For sake of simplicity, we include in the contextual relationships also the scholarly classification, which may have either to do with the role and cultural connections of the object in the past, or its kind of structure, substance or contents as it can be verified at present."
+}, {
+  "id" : "edm:isRepresentationOf",
+  "label" : "is representation of",
+  "description" : "This property associates a resource to another resource that it represents."
+}, {
+  "id" : "edm:isShownAt",
+  "label" : "is shown at",
+  "description" : "The URL to the digital object on the provider’s web site in its full information context."
+}, {
+  "id" : "edm:isShownBy",
+  "label" : "is shown by",
+  "description" : "An unambiguous URL reference to the digital object on the provider’s web site in the best available resolution/quality."
+}, {
+  "id" : "edm:isSimilarTo",
+  "label" : "is similar to",
+  "description" : "The most generic derivation property, covering also the case of questionable derivation. Is Similar To asserts that parts of the contents of one resource exhibit common features with respect to ideas, shapes, structures, colors, words, plots, topics with the contents of the related resource. Those common features may be attributed to a common origin or influence (in particular for derivation), but also to more generic cultural or psychological factors."
+}, {
+  "id" : "edm:isSuccessorOf",
+  "label" : "is sucessor of",
+  "description" : "This property captures the relation between the continuation of a resource and that resource. This applies to a story, a serial etc. No content of the successor resource is identical or has a similar form with that of the precursor. The similarity is only in the context, subjects and figures of a plot. Successors typically form part of a common whole – such as a trilogy, a journal, etc."
+}, {
+  "id" : "edm:landingPage",
+  "label" : "landing page",
+  "description" : "This property captures the relation between a Europeana aggregation representing a cultural heritage object and a (reference) Web resource giving access to that object."
+}, {
+  "id" : "edm:language",
+  "label" : "language",
+  "description" : "A language associated with the resource."
+}, {
+  "id" : "edm:object",
+  "label" : "object",
+  "description" : "The URL of a representation of the CHO which will be used for generating previews for use in the Europeana portal. This may be the same URL as edm:isShownBy."
+}, {
+  "id" : "edm:preview",
+  "label" : "preview",
+  "description" : "The URL of a thumbnail representing the digital object, generated by Europeana."
+}, {
+  "id" : "edm:provider",
+  "label" : "provider",
+  "description" : "The name of the provider of the object (i.e. the organisation providing data directly to Europeana)."
+}, {
+  "id" : "edm:realizes",
+  "label" : "realises",
+  "description" : "This property describes a relation between a physical thing and the information resource that is contained in it, visible at it or otherwise carried by it, if applicable."
+}, {
+  "id" : "edm:rights",
+  "label" : "rights",
+  "description" : "Information about copyright, usage and access rights of the digital objects in Europeana that represent the source cultural heritage object described in the data."
+}, {
+  "id" : "edm:spatialResolution",
+  "label" : "spatial resolution",
+  "description" : "The spatial resolution of a media resource"
+}, {
+  "id" : "edm:type",
+  "label" : "media type",
+  "description" : "The Europeana material type of the resource."
+}, {
+  "id" : "edm:ugc",
+  "label" : "user generated content",
+  "description" : "Used to identify user generated content.  It should be applied to all digitized or born digital content contributed by the general public and/or collected through a crowdsourcing initiative or project."
+}, {
+  "id" : "edm:wasPresentAt",
+  "label" : "was present at",
+  "description" : "Associates the people, things or information resources with an event at which they were present."
+}, {
+  "id" : "edm:year",
+  "label" : "Europeana year",
+  "description" : "A point of time associated with an event in the life of the original analog or born digital object."
+}, {
+  "id" : "foaf:Organization",
+  "label" : "Organisation",
+  "description" : "An organisation providing data either directly or indirectly to Europeana"
+}, {
+  "id" : "foaf:name",
+  "label" : "name",
+  "description" : "The name of the agent as a simple textual string."
+}, {
+  "id" : "odrl:inheritFrom",
+  "label" : "inherit from",
+  "description" : "ID of a base rights statement from which the described License is derived. This value must come from a list of statements controlled by Europeana."
+}, {
+  "id" : "ore:Aggregation",
+  "label" : "Aggregation",
+  "description" : "A set of related resources (Aggregated Resources), grouped together such that the set can be treated as a single resource. This is the entity described within the ORE interoperability framework by a Resource Map."
+}, {
+  "id" : "ore:Proxy",
+  "label" : "Proxy",
+  "description" : "A proxy is a resource that stands for an aggregated resource A in the context of a specific aggregation. The URI of a proxy then can be used in assertions specific to the aggregated resource A in the context of that aggregation."
+}, {
+  "id" : "ore:aggregates",
+  "label" : "aggregates",
+  "description" : "Aggregations, by definition, aggregate resources. The ore:aggregates relationship expresses that the object resource is a member of the set of aggregated resources of the subject (the Aggregation). This relationship between the Aggregation and its Aggregated Resources is thus more specific than a simple part/whole relationship, as expressed by dcterms:hasPart for example."
+}, {
+  "id" : "ore:lineage",
+  "label" : "lineage",
+  "description" : "ore:lineage is a relationship between two Proxy objects, both of which MUST have the same Resource for which they are proxies. The meaning is that the Resource for which the subject of the relationship is a Proxy was discovered in the Aggregation in which the object Proxy's resource is aggregated."
+}, {
+  "id" : "ore:proxyFor",
+  "label" : "proxy for",
+  "description" : "Proxy objects are used to represent a resource as it is aggregated in a particular aggregation. The ore:proxyFor relationship is used to link the proxy to the aggregated resource it is a proxy for. The subject of the relationship is a proxy object, and the object of the relationship is the aggregated resource."
+}, {
+  "id" : "ore:proxyIn",
+  "label" : "proxy in",
+  "description" : "Proxy objects must also link to the aggregation in which the resource being proxied is aggregated. The ore:proxyIn relationship is used for this purpose. The subject of the relationship is a proxy object, and the object of the relationship is the aggregation."
+}, {
+  "id" : "owl:sameAs",
+  "label" : "same as",
+  "description" : "Indicates that the resource being described can be referenced via a different URI than the one used to identify it"
+}, {
+  "id" : "rdaGr2:biographicalInformation",
+  "label" : "biographical information",
+  "description" : "Information pertaining to the life or history of the agent."
+}, {
+  "id" : "rdaGr2:dateOfBirth",
+  "label" : "dae of birth",
+  "description" : "The date the agent (person) was born."
+}, {
+  "id" : "rdaGr2:dateOfDeath",
+  "label" : "date of death",
+  "description" : "The date the agent (person) died."
+}, {
+  "id" : "rdaGr2:dateOfEstablishment",
+  "label" : "date of establishment",
+  "description" : "The date on which the agent (corporate body) was established or founded."
+}, {
+  "id" : "rdaGr2:dateOfTermination",
+  "label" : "date of termination",
+  "description" : "The date on which the agent (corporate body) was terminated or dissolved."
+}, {
+  "id" : "rdaGr2:gender",
+  "label" : "gender",
+  "description" : "The gender with which the agent identifies."
+}, {
+  "id" : "rdaGr2:placeOfBirth",
+  "label" : "place of birth",
+  "description" : "The town, city, province, state, and/or country in which a person was born."
+}, {
+  "id" : "rdaGr2:placeOfDeath",
+  "label" : "place of death",
+  "description" : "The town, city, province, state, and/or country in which a person died."
+}, {
+  "id" : "rdaGr2:professionOrOccupation",
+  "label" : "profession or occupation",
+  "description" : "The profession or occupation in which the agent works or has worked."
+}, {
+  "id" : "rdf:type",
+  "label" : "rdf type",
+  "description" : "Indicates the type of a resource."
+}, {
+  "id" : "skos:Concept",
+  "label" : "Concept",
+  "description" : "A SKOS concept can be viewed as an idea or notion; a unit of thought. However, what constitutes a unit of thought is subjective, and this definition is meant to be suggestive, rather than restrictive. The notion of a SKOS concept is used to refer to specific ideas or meanings established within a knowledge organization system and describe their conceptual structure."
+}, {
+  "id" : "skos:altLabel",
+  "label" : "alternative label",
+  "description" : "Alternative forms of the name of the contextual resource"
+}, {
+  "id" : "skos:broadMatch",
+  "label" : "broad match",
+  "description" : "The identifier of a broader matching concepts from other concept schemes."
+}, {
+  "id" : "skos:broader",
+  "label" : "broader",
+  "description" : "The identifier of a broader concept in the same thesaurus or controlled vocabulary."
+}, {
+  "id" : "skos:closeMatch",
+  "label" : "close match",
+  "description" : "The identifier of close matching concepts from other concept schemes."
+}, {
+  "id" : "skos:exactMatch",
+  "label" : "exact match",
+  "description" : "The identifier of exactly matching concepts from other concept schemes."
+}, {
+  "id" : "skos:hiddenLabel",
+  "label" : "hidden label",
+  "description" : "A hidden lexical label, typically used for text-based indexing and search applications, but not for display purposes"
+}, {
+  "id" : "skos:inScheme",
+  "label" : "in scheme",
+  "description" : "The URI of a concept scheme."
+}, {
+  "id" : "skos:narrowMatch",
+  "label" : "narrow match",
+  "description" : "The identifier of a narrower matching concepts from other concept schemes."
+}, {
+  "id" : "skos:narrower",
+  "label" : "narrower",
+  "description" : "The identifier of a narrower concept."
+}, {
+  "id" : "skos:notation",
+  "label" : "notation",
+  "description" : "The notation in which the concept is represented. This may not be words in natural language for some knowledge organisation systems e.g. algebra."
+}, {
+  "id" : "skos:note",
+  "label" : "note",
+  "description" : "Information related to the described resource"
+}, {
+  "id" : "skos:prefLabel",
+  "label" : "preferred label",
+  "description" : "The preferred form of the name of the contextual resource"
+}, {
+  "id" : "skos:related",
+  "label" : "related",
+  "description" : "The identifier of a related concept."
+}, {
+  "id" : "skos:relatedMatch",
+  "label" : "related match",
+  "description" : "The identifier of a related matching concepts from other concept schemes."
+}, {
+  "id" : "svcs:Service",
+  "label" : "Service",
+  "description" : "A Service is web service associated with a Site or part of it. The svcs:Service class is used to declare (and provide information to) the service used to consume the Resource"
+}, {
+  "id" : "svcs:has_service",
+  "label" : "has service",
+  "description" : "The identifier of the svcs:Service required to consume the edm:WebResource."
+}, {
+  "id" : "wgs84_pos:alt",
+  "label" : "altitude",
+  "description" : "The altitude of a spatial thing (decimal metres above the reference)."
+}, {
+  "id" : "wgs84_pos:lat",
+  "label" : "latitude",
+  "description" : "The latitude of a spatial thing (decimal degrees)."
+}, {
+  "id" : "wgs84_pos:lat_long",
+  "label" : "latitude & longitude",
+  "description" : "A comma-separated representation of a latitude, longitude coordinate."
+}, {
+  "id" : "wgs84_pos:long",
+  "label" : "longitude",
+  "description" : "The longitude of a spatial thing (decimal degrees)."
+} ]
