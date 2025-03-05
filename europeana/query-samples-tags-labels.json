@@ -1,71 +1,269 @@
 {
-	"entities": {
-		"edm:provider": {
-			"type": "property", 
-			"datatype": "europeana-property", 
-			"id": "edm:provider", 
-			"labels": {
-				"en": {
-					"language":"en",
-					"value":"Provider"
-				}
-			}
-		},
-		"edm:rights": {
-			"type": "property", 
-			"datatype": "europeana-property", 
-			"id": "edm:rights", 
-			"labels": {
-				"en": {
-					"language":"en",
-					"value":"Rights"
-				}
-			}
-		},
-		"edm:isShownBy": {
-			"type": "property", 
-			"datatype": "europeana-property", 
-			"id": "edm:isShownBy", 
-			"labels": {
-				"en": {
-					"language":"en",
-					"value":"isShownBy"
-				}
-			}
-		},
-		"rdf:type": {
-			"type": "property", 
-			"datatype": "europeana-property", 
-			"id": "rdf:type", 
-			"labels": {
-				"en": {
-					"language":"en",
-					"value":"Type"
-				}
-			}
-		},
-		"edm:Agent": {
-			"type": "class", 
-			"datatype": "europeana-class", 
-			"id": "edm:Agent", 
-			"labels": {
-				"en": {
-					"language":"en",
-					"value":"Agent"
-				}
-			}
-		},
-		"edm:Place": {
-			"type": "class", 
-			"datatype": "europeana-class", 
-			"id": "edm:Place", 
-			"labels": {
-				"en": {
-					"language":"en",
-					"value":"Place"
-				}
-			}
-		}
-	},
-	"success": 1
+  "entities" : {
+    "dc:contributor" : {
+      "id" : "dc:contributor",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "contributor"
+        }
+      }
+    },
+    "dc:coverage" : {
+      "id" : "dc:coverage",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "coverage"
+        }
+      }
+    },
+    "dc:creator" : {
+      "id" : "dc:creator",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "creator"
+        }
+      }
+    },
+    "dcterms:spatial" : {
+      "id" : "dcterms:spatial",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "spatial"
+        }
+      }
+    },
+    "edm:Agent" : {
+      "id" : "edm:Agent",
+      "type" : "class",
+      "datatype" : "europeana-class",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "Agent"
+        }
+      }
+    },
+    "edm:EuropeanaAggregation" : {
+      "id" : "edm:EuropeanaAggregation",
+      "type" : "class",
+      "datatype" : "europeana-class",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "Europeana Aggregation"
+        }
+      }
+    },
+    "edm:Place" : {
+      "id" : "edm:Place",
+      "type" : "class",
+      "datatype" : "europeana-class",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "Place"
+        }
+      }
+    },
+    "edm:ProvidedCHO" : {
+      "id" : "edm:ProvidedCHO",
+      "type" : "class",
+      "datatype" : "europeana-class",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "Provided Cultural Heritage Object"
+        }
+      }
+    },
+    "edm:TimeSpan" : {
+      "id" : "edm:TimeSpan",
+      "type" : "class",
+      "datatype" : "europeana-class",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "Time Span"
+        }
+      }
+    },
+    "edm:WebResource" : {
+      "id" : "edm:WebResource",
+      "type" : "class",
+      "datatype" : "europeana-class",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "Web Resource"
+        }
+      }
+    },
+    "edm:country" : {
+      "id" : "edm:country",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "country"
+        }
+      }
+    },
+    "edm:dataProvider" : {
+      "id" : "edm:dataProvider",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "data provider"
+        }
+      }
+    },
+    "edm:datasetName" : {
+      "id" : "edm:datasetName",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "dataset name"
+        }
+      }
+    },
+    "edm:europeanaProxy" : {
+      "id" : "edm:europeanaProxy",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "europeana proxy"
+        }
+      }
+    },
+    "edm:hasView" : {
+      "id" : "edm:hasView",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "has view"
+        }
+      }
+    },
+    "edm:isShownBy" : {
+      "id" : "edm:isShownBy",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "is shown by"
+        }
+      }
+    },
+    "edm:language" : {
+      "id" : "edm:language",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "language"
+        }
+      }
+    },
+    "edm:provider" : {
+      "id" : "edm:provider",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "provider"
+        }
+      }
+    },
+    "edm:rights" : {
+      "id" : "edm:rights",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "rights"
+        }
+      }
+    },
+    "edm:type" : {
+      "id" : "edm:type",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "media type"
+        }
+      }
+    },
+    "edm:year" : {
+      "id" : "edm:year",
+      "type" : "property",
+      "datatype" : "europeana-property",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "Europeana year"
+        }
+      }
+    },
+    "foaf:Organization" : {
+      "id" : "foaf:Organization",
+      "type" : "class",
+      "datatype" : "europeana-class",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "Organisation"
+        }
+      }
+    },
+    "ore:Proxy" : {
+      "id" : "ore:Proxy",
+      "type" : "class",
+      "datatype" : "europeana-class",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "Proxy"
+        }
+      }
+    },
+    "skos:Concept" : {
+      "id" : "skos:Concept",
+      "type" : "class",
+      "datatype" : "europeana-class",
+      "labels" : {
+        "en" : {
+          "language" : "en",
+          "label" : "Concept"
+        }
+      }
+    }
+  },
+  "status" : 1
 }
