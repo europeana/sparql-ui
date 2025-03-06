@@ -60,11 +60,12 @@ wikibase.queryService.api.Wikibase = ( function( $ ) {
 			throw new Error( 'Invalid method call wikibase.queryService.api.Wikibase: sparqlUri parameter is missing!' );
 		}
 		this._sparqlUri = sparqlUri;
-		if(!this._sparqlUri.includes("wikidata.org") && !this._sparqlUri.includes("europeana.eu")) {
-			throw new Error( 'Invalid sparqlUri parameter in the method wikibase.queryService.api.Wikibase!' )
+		if(this._sparqlUri == null || this._sparqlUri === 'undefined') {
+			throw new Error( 'Undefined sparqlUri parameter in the method wikibase.queryService.api.Wikibase!' )
 		}
 
-		if(this._sparqlUri.includes("europeana.eu")) {
+		//this means the url is for europeana
+		if(!this._sparqlUri.includes("wikidata.org")) {
 			if ( !wikibaseConfig ) {
 				throw new Error( 'Invalid method call wikibase.queryService.api.Wikibase: wikibaseConfig parameter is missing!' );
 			}	
@@ -113,7 +114,7 @@ wikibase.queryService.api.Wikibase = ( function( $ ) {
 	
 			return this._query( query );
 		}
-		else if( this._sparqlUri.includes("europeana.eu") ) {
+		else {
 			var deferred = $.Deferred();
 			$.getJSON( this._tooltipsEdmJsonEuropeana, function( allTooltips ) {
 					var tooltip=[];
@@ -159,7 +160,7 @@ wikibase.queryService.api.Wikibase = ( function( $ ) {
 	
 			return this._query( query );
 		}
-		if(this._sparqlUri.includes("europeana.eu")) {
+		else {
 			return $.getJSON( this._querySamplesTagLabelsJsonEuropeana )
 				.fail( function( jqXHR, textStatus, errorThrown ) {
 					console.error( 'Failed loading the query samples tags labels json: ' + textStatus + ", " + errorThrown );

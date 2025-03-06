@@ -20,7 +20,7 @@ wikibase.queryService.api.QuerySamples = ( function ( $ ) {
 			throw new Error( 'Invalid method call: query sample settings are missing!' );
 		}
 
-		if ( !sparqlUri ) {
+		if (sparqlUri == null || sparqlUri === 'undefined') {
 			throw new Error( 'Invalid method call wikibase.queryService.api.QuerySamples: sparqlUri parameter is missing!' );
 		}
 		this._sparqlUri=sparqlUri;
@@ -30,12 +30,9 @@ wikibase.queryService.api.QuerySamples = ( function ( $ ) {
 			this._pageTitle = settings.pageTitle;
 			this._pageUrl = this._apiServer + settings.pagePathElement + "Special:MyLanguage/" + this._pageTitle;
 		}
-		else if(this._sparqlUri.includes("europeana.eu")) {
-			this._jsonFileEuropeana = settings.jsonFileEuropeana;	
-		}
 		else {
-			throw new Error( 'Invalid parameter sparqlUri in the method wikibase.queryService.api.QuerySamples!' );
-		}
+			this._jsonFileEuropeana = settings.jsonFileEuropeana;	
+		}		
 	}
 
 	/**
@@ -59,7 +56,7 @@ wikibase.queryService.api.QuerySamples = ( function ( $ ) {
 				return self._parseHTML( response.parse.text );
 			} );
 		}
-		else if(this._sparqlUri.includes("europeana.eu")) {
+		else {
 			return $.getJSON( this._jsonFileEuropeana, function( examples ) {
 			// group by category
   			return _.flatten( _.toArray( _.groupBy( examples, 'category' ) ) );

@@ -7,41 +7,11 @@ wikibase.queryService.RdfNamespaces = {};
 	
 	//initialization of the constants based on the environment (europeana or wikidata)
 	RdfNamespaces.initBasedOnEnvironment = function( sparqlUri, rdfNamespacesJsons ) {
-		if ( !sparqlUri ) {
+		if ( sparqlUri == null || sparqlUri === 'undefined') {
 			throw new Error( 'Invalid method call RdfNamespaces.initBasedOnEnvironment: sparqlUri parameter is missing!' );
 		}
 
-		if(sparqlUri.includes("europeana.eu")) {
-			if ( !rdfNamespacesJsons ) {
-				throw new Error( 'Invalid method call RdfNamespaces.initBasedOnEnvironment: rdfNamespacesJsons parameter is missing!' );
-			}
-			//a synchronous read from a json file
-			$.ajax({
-			  url: rdfNamespacesJsons.standardPrefixesJsonEuropeana,
-			  async: false,
-			  dataType: 'json',
-			  success: function (response) {
-				RdfNamespaces.STANDARD_PREFIXES = response;
-			  }
-			});
-			
-			$.ajax({
-			  url: rdfNamespacesJsons.shortcutsJsonEuropeana,
-			  async: false,
-			  dataType: 'json',
-			  success: function (response) {
-				RdfNamespaces.NAMESPACE_SHORTCUTS = response;
-				RdfNamespaces.ALL_PREFIXES = $.map( RdfNamespaces.NAMESPACE_SHORTCUTS, function ( n ) {
-						return n;
-					} ).reduce( function ( p, v, i ) {
-						return $.extend( p, v );
-					}, {} );
-			}});	
-
-			RdfNamespaces.ENTITY_TYPES = {
-			};
-		}	
-		else if(sparqlUri.includes("wikidata.org")) {		
+		if(sparqlUri.includes("wikidata.org")) {		
 			RdfNamespaces.NAMESPACE_SHORTCUTS = {
 				Wikidata: {
 					wikibase: 'http://wikiba.se/ontology#',
@@ -123,8 +93,36 @@ wikibase.queryService.RdfNamespaces = {};
 			};
 		}
 		else {
-			throw new Error( 'Invalid parameter value: sparqlUri in the method: RdfNamespaces.initBasedOnEnvironment!' );
-		}
+			if ( !rdfNamespacesJsons ) {
+				throw new Error( 'Invalid method call RdfNamespaces.initBasedOnEnvironment: rdfNamespacesJsons parameter is missing!' );
+			}
+			//a synchronous read from a json file
+			$.ajax({
+			  url: rdfNamespacesJsons.standardPrefixesJsonEuropeana,
+			  async: false,
+			  dataType: 'json',
+			  success: function (response) {
+				RdfNamespaces.STANDARD_PREFIXES = response;
+			  }
+			});
+			
+			$.ajax({
+			  url: rdfNamespacesJsons.shortcutsJsonEuropeana,
+			  async: false,
+			  dataType: 'json',
+			  success: function (response) {
+				RdfNamespaces.NAMESPACE_SHORTCUTS = response;
+				RdfNamespaces.ALL_PREFIXES = $.map( RdfNamespaces.NAMESPACE_SHORTCUTS, function ( n ) {
+						return n;
+					} ).reduce( function ( p, v, i ) {
+						return $.extend( p, v );
+					}, {} );
+			}});	
+
+			RdfNamespaces.ENTITY_TYPES = {
+			};
+		}	
+		
 	};
 
 	RdfNamespaces.addPrefixes = function( prefixes ) {

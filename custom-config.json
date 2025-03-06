@@ -1,7 +1,7 @@
 {
   "api": {
 	    "sparql": {
-    	  "uri": "https://sparql.europeana.eu/",
+    	  "uri": "https://api.test.eanadev.org/sparql",
     	  "sparqlKeywordsJsonEuropeana": "europeana/sparql-keywords.json",
     	  "sparqlPredicatesJsonEuropeana": "europeana/sparql-predicates.json"
     	},

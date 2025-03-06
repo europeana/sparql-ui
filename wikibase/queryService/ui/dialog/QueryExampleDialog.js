@@ -101,7 +101,7 @@ wikibase.queryService.ui.dialog.QueryExampleDialog = ( function( $ ) {
 		}
 
 
-		if(!this._wikibaseApi._sparqlUri.includes("europeana.eu")) {
+		if(this._wikibaseApi._sparqlUri.includes("wikidata.org")) {
 			//create banner only for the NON europeana sparql uri
 			var bannerContent = $( '<span>' )
 					.attr( 'data-i18n', '[html]wdqs-app-query-builder-example-banner-content' )

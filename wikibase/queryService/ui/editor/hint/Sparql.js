@@ -112,10 +112,11 @@ wikibase.queryService.ui.editor.hint = wikibase.queryService.ui.editor.hint || {
 		if ( !sparqlConfig ) {
 			throw new Error( 'Invalid method call wb.queryService.ui.editor.hint.Sparql: sparqlConfig parameter is missing!' );
 		}
-		if(!sparqlConfig.uri.includes("wikidata.org") && !sparqlConfig.uri.includes("europeana.eu")) {
-			throw new Error( 'Invalid sparql uri parameter in the method wb.queryService.ui.editor.hint.Sparql!' )
+		if(sparqlConfig.uri == null || sparqlConfig.uri === 'undefined') {
+			throw new Error( 'Undefined sparql uri parameter in the method wb.queryService.ui.editor.hint.Sparql!' )
 		}
-		if(sparqlConfig.uri.includes("europeana.eu")) {
+		
+		if(!sparqlConfig.uri.includes("wikidata.org")) {
 			SPARQL_CUSTOM_FUNCTIONS=[];
 			//a synchronous read from a json file
 			$.ajax({
