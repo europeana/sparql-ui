@@ -7,7 +7,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "contributor"
+          "value" : "contributor"
         }
       }
     },
@@ -18,7 +18,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "coverage"
+          "value" : "coverage"
         }
       }
     },
@@ -29,7 +29,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "creator"
+          "value" : "creator"
         }
       }
     },
@@ -40,7 +40,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "spatial"
+          "value" : "spatial"
         }
       }
     },
@@ -51,7 +51,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "Agent"
+          "value" : "Agent"
         }
       }
     },
@@ -62,7 +62,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "Europeana Aggregation"
+          "value" : "Europeana Aggregation"
         }
       }
     },
@@ -73,7 +73,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "Place"
+          "value" : "Place"
         }
       }
     },
@@ -84,7 +84,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "Provided Cultural Heritage Object"
+          "value" : "Provided Cultural Heritage Object"
         }
       }
     },
@@ -95,7 +95,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "Time Span"
+          "value" : "Time Span"
         }
       }
     },
@@ -106,7 +106,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "Web Resource"
+          "value" : "Web Resource"
         }
       }
     },
@@ -117,7 +117,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "country"
+          "value" : "country"
         }
       }
     },
@@ -128,7 +128,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "data provider"
+          "value" : "data provider"
         }
       }
     },
@@ -139,7 +139,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "dataset name"
+          "value" : "dataset name"
         }
       }
     },
@@ -150,7 +150,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "europeana proxy"
+          "value" : "europeana proxy"
         }
       }
     },
@@ -161,7 +161,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "has view"
+          "value" : "has view"
         }
       }
     },
@@ -172,7 +172,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "is shown by"
+          "value" : "is shown by"
         }
       }
     },
@@ -183,7 +183,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "language"
+          "value" : "language"
         }
       }
     },
@@ -194,7 +194,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "provider"
+          "value" : "provider"
         }
       }
     },
@@ -205,7 +205,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "rights"
+          "value" : "rights"
         }
       }
     },
@@ -216,7 +216,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "media type"
+          "value" : "media type"
         }
       }
     },
@@ -227,7 +227,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "Europeana year"
+          "value" : "Europeana year"
         }
       }
     },
@@ -238,7 +238,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "Organisation"
+          "value" : "Organisation"
         }
       }
     },
@@ -249,7 +249,7 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "Proxy"
+          "value" : "Proxy"
         }
       }
     },
@@ -260,10 +260,10 @@
       "labels" : {
         "en" : {
           "language" : "en",
-          "label" : "Concept"
+          "value" : "Concept"
         }
       }
     }
   },
-  "status" : 1
+  "success" : 1
 }
