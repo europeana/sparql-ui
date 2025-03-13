@@ -1,6 +1,6 @@
 {
 		"cc": "PREFIX cc: <http://creativecommons.org/ns#>",
-		"ds": "PREFIX dc: <http://purl.org/dc/elements/1.1/>",
+		"dc": "PREFIX dc: <http://purl.org/dc/elements/1.1/>",
 		"dcterms": "PREFIX dcterms: <http://purl.org/dc/terms/>",
 		"dqv": "PREFIX dqv: <http://www.w3.org/ns/dqv#>",
 		"ebucore": "PREFIX ebucore: <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#>",
