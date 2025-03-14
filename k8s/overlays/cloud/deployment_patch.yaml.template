@@ -5,6 +5,9 @@ metadata:
 spec:
   replicas: ${MIN_REPLICAS}
   template:
+    metadata:
+      annotations:
+        fluentd/include: '${COLLECT_LOGS}'
     spec:
       containers:
         - name: sparql-ui
