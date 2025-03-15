@@ -125,7 +125,7 @@ wikibase.queryService.RdfNamespaces = {};
 		
 	};
 
-	RdfNamespaces.addPrefixes = function( prefixes ) {
+	RdfNamespaces.addPrefixes = function ( prefixes ) {
 		$.extend( RdfNamespaces.ALL_PREFIXES, prefixes );
 	};
 

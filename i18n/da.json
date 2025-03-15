@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Fugithora",
 			"Joedalton",
 			"Peterleth",
 			"Saederup92",
@@ -13,6 +14,7 @@
 	"wdqs-app-button-help": "Hjælp",
 	"wdqs-app-button-run": "Kør",
 	"wdqs-app-button-run-title": "Udfør forespørgsel (CTRL + ENTER)",
+	"wdqs-app-button-cancel-title": "Annuller forespørgsel (CTRL + ESC)",
 	"wdqs-app-button-clear": "Ryd",
 	"wdqs-app-button-clear-title": "Ryd forespørgsel",
 	"wdqs-app-button-restore-title": "Gendan forrige forespørgsel",
@@ -33,8 +35,6 @@
 	"wdqs-app-help-manual": "Brugervejledning",
 	"wdqs-app-help-examples": "Forespørgselseksempler",
 	"wdqs-app-query-builder-name": "Forespørgselsbygger",
-	"wdqs-app-query-builder-dd-title": "Byg forespørgsler uden SPARQL",
-	"wdqs-app-query-builder-dd-copy": "Opret forespørgsler visuelt med et par klik. Intet kendskab til SPARQL påkrævet.",
 	"wdqs-app-query-builder-banner-content": "Har du brug for hjælp til at oprette en forespørgsel? Du kan bygge forespørgsler uden at skulle skrive SPARQL i den nye <a>Query Builder</a> .",
 	"wdqs-app-query-builder-example-banner-content": "Du kan oprette forespørgsler uden at skulle skrive SPARQL i <a>Query Builder</a>",
 	"wdqs-app-help-datamodel": "RDF-datamodel",

@@ -35,6 +35,20 @@ npm install wikidata-query-gui
 ## Configuration
 Per default the Wikibase Query Service GUI is configured to be used as a local development test instance. It can be customized by creating a `custom-config.json` in the repository's root dir. This file can be used to override any of the default settings obtained from `default-config.json`.
 
+### Banner Message
+
+The banner message may be configured per site deployment. In order display a banner, add its banner key to the configuration:
+
+```js
+{
+// ...
+  "bannerName": "query-builder",
+// ...
+}
+```
+
+Empty values, falsy values and undefined banner keys will result in the banner not showing.
+
 ## Run tests
 
 Run JSHint, JSCS and QUnit tests.
@@ -59,18 +73,22 @@ $ npm run build
 
 
 ## Deploy
-Create a build and push it to the deployment branch via git review.
+To deploy the GUI, [trigger a new build of the deploy repo on Jenkins](https://integration.wikimedia.org/ci/job/wikidata-query-gui-build/).
 
-```bash
-$ npm run deploy
-```
+![Screenshot of the Jenkins dashboard for the build repo. Highlighted are the build buttons in the sidebar with a "1" and the "Build" button in the main part with a "2"](docs/images/triggerDeployBuild.png)
 
+This creates a new open change in the deploy repository: https://gerrit.wikimedia.org/r/q/project:wikidata/query/gui-deploy+status:open
+That change will be based on the [latest commit in the master branch](https://gerrit.wikimedia.org/r/plugins/gitiles/wikidata/query/gui/+log/refs/heads/master), and thus it will include all previous commits.
+Optionally, you can edit the commit message in the Gerrit UI to include the `Bug: Txxxxx` line, to emphasize to which task the change belongs.
 
-Please make sure you have defined a gitreview username:
-```bash
-git config --global --add gitreview.username "[username]"
-```
+You can clone that repository and check out the change locally to test and verify it.
 
+As that repository does not have any CI, you need to manually merge the change.
+That means, giving +2 to both the Code Review as well as the Verified label, and then clicking the "Submit" button.
+
+The site will be deployed with the next puppet run, which should happen after at most 30 minutes.
+
+See also: https://wikitech.wikimedia.org/wiki/Wikidata_Query_Service#GUI_deployment_general_notes
 
 ## Components
 ### Editor

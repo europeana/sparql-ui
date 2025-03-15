@@ -40,8 +40,6 @@
 	"wdqs-app-help-manual": "ব্যবহারবিধি",
 	"wdqs-app-help-examples": "নমুনা প্রশ্ন",
 	"wdqs-app-query-builder-name": "কোয়েরি নির্মাতা",
-	"wdqs-app-query-builder-dd-title": "SPARQL ছাড়াই কোয়েরি তৈরি করুন",
-	"wdqs-app-query-builder-dd-copy": "কয়েকটি ক্লিকের মাধ্যমে দৃশ্যত কোয়েরি তৈরি করুন। SPARQL সম্পর্কে জানা জরুরি নয়।",
 	"wdqs-app-query-builder-banner-content": "প্রশ্ন তৈরি করতে সাহায্য প্রয়োজন? আপনি নতুন <a>কোয়েরি নির্মাতা</a>য় SPARQL না লিখেই প্রশ্ন তৈরি করতে পারেন।",
 	"wdqs-app-help-datamodel": "RDF উপাত্ত মডেল",
 	"wdqs-app-help-prefixes": "উপসর্গের তালিকা",
@@ -142,5 +140,6 @@
 	"wdqs-embed-button-edit-code": "SPARQL সম্পাদনা",
 	"wdqs-embed-button-edit-code-title": "SPARQL সম্পাদক দিয়ে এই প্রশ্নটি সম্পাদনা করুন",
 	"wdqs-embed-explorer-button-incoming": "বহিরাগত সংযোগ দেখুন",
-	"wdqs-embed-explorer-button-outgoing": "বহির্গামী সংযোগ দেখুন"
+	"wdqs-embed-explorer-button-outgoing": "বহির্গামী সংযোগ দেখুন",
+	"wdqs-app-graph-split-banner-content": "আপনার প্রশ্নের মধ্যে কি বৈজ্ঞানিক নিবন্ধগুলি বর্ণনা করা আইটেম অন্তর্ভুক্ত রয়েছে? আসন্ন গ্রাফ বিভাজন আপনাকে প্রভাবিত করবে। দয়া করে <a href=\"https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:SPARQL_query_service/WDQS_backend_update/September_2024_scaling_update\">এই ঘোষণায়</a> এটি সম্পর্কে আরও জানুন।"
 }

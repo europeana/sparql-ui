@@ -4,7 +4,7 @@ wikibase.queryService.ui = wikibase.queryService.ui || {};
 wikibase.queryService.ui.editor = wikibase.queryService.ui.editor || {};
 wikibase.queryService.ui.editor.tooltip = wikibase.queryService.ui.editor.tooltip || {};
 
-wikibase.queryService.ui.editor.tooltip.Rdf = ( function( CodeMirror, $, _ ) {
+wikibase.queryService.ui.editor.tooltip.Rdf = ( function ( CodeMirror, $, _ ) {
 	'use strict';
 
 	/**
@@ -15,9 +15,10 @@ wikibase.queryService.ui.editor.tooltip.Rdf = ( function( CodeMirror, $, _ ) {
 	 *
 	 * @author Jonas Kress
 	 * @constructor
-	 * @param {wikibase.queryService.api.Wikibase} api
+	 * @param {wikibase.queryService.ui.editor.tooltip.TooltipRepository} tooltipRepository
 	 */
-	function SELF( api, rdfNamespaces, sparqlUri ) {
+	function SELF( tooltipRepository, api, rdfNamespaces, sparqlUri ) {
+		this._tooltipRepository = tooltipRepository;
 		this._api = api;
 		this._rdfNamespaces = rdfNamespaces;
 
@@ -55,20 +56,20 @@ wikibase.queryService.ui.editor.tooltip.Rdf = ( function( CodeMirror, $, _ ) {
 	 *
 	 * @param {CodeMirror} editor
 	 */
-	SELF.prototype.setEditor = function( editor ) {
+	SELF.prototype.setEditor = function ( editor ) {
 		this._editor = editor;
 		this._registerHandler();
 	};
 
-	SELF.prototype._registerHandler = function() {
+	SELF.prototype._registerHandler = function () {
 		var self = this;
 
-		CodeMirror.on( this._editor.getWrapperElement(), 'mouseover', _.debounce( function( e ) {
+		CodeMirror.on( this._editor.getWrapperElement(), 'mouseover', _.debounce( function ( e ) {
 			self._triggerTooltip( e );
 		}, 300 ) );
 	};// TODO: Remove CodeMirror dependency
 
-	SELF.prototype._triggerTooltip = function( e ) {
+	SELF.prototype._triggerTooltip = function ( e ) {
 		this._removeToolTip();
 		this._createTooltip( e );
 	};
@@ -82,7 +83,7 @@ wikibase.queryService.ui.editor.tooltip.Rdf = ( function( CodeMirror, $, _ ) {
 					top: posY
 				} ) ).string;
 	
-			if ( !token.match( /.+\:(Q|P)[0-9]*/ ) ) {
+			if ( !token.match( /.+\:(Q|P|L)[0-9]+$/ ) ) {
 				return;
 			}
 	
@@ -95,13 +96,12 @@ wikibase.queryService.ui.editor.tooltip.Rdf = ( function( CodeMirror, $, _ ) {
 			}
 	
 			var self = this;
-			this._searchEntities( entityId, prefixes[prefix] ).done( function( list ) {
-				self._showToolTip( list.shift(), {
+			this._tooltipRepository.getTooltipContentForId( entityId ).then( function ( content ) {
+				self._showToolTip( content, {
 					x: posX,
 					y: posY
 				} );
 			} );
-
 		}
 		else {
 			var posX = e.clientX,
@@ -126,31 +126,31 @@ wikibase.queryService.ui.editor.tooltip.Rdf = ( function( CodeMirror, $, _ ) {
 
 	};
 
-	SELF.prototype._removeToolTip = function() {
+	SELF.prototype._removeToolTip = function () {
 		$( '.wikibaseRDFtoolTip' ).remove();
 	};
 
-	SELF.prototype._showToolTip = function( $content, pos ) {
+	SELF.prototype._showToolTip = function ( $content, pos ) {
 		if ( !$content || !pos ) {
 			return;
 		}
 
 		$( '<div class="panel panel-info">' ).css( 'position', 'absolute' ).css( 'z-index', '100' )
-				.css( 'max-width', '200px' ).css( {
-					top: pos.y + 2,
-					left: pos.x + 2
-				} ).addClass( 'wikibaseRDFtoolTip' ).append(
-						$( '<div class="panel-body">' ).append( $content ).css( 'padding', '10px' ) )
-				.appendTo( 'body' ).fadeIn( 'slow' );
+			.css( 'max-width', '200px' ).css( {
+				top: pos.y + 2,
+				left: pos.x + 2
+			} ).addClass( 'wikibaseRDFtoolTip' ).append(
+				$( '<div class="panel-body">' ).append( $content ).css( 'padding', '10px' ) )
+			.appendTo( 'body' ).fadeIn( 'slow' );
 	};
 
-	SELF.prototype._extractPrefixes = function( text ) {
+	SELF.prototype._extractPrefixes = function ( text ) {
 		var prefixes = this._rdfNamespaces.getPrefixMap( this._rdfNamespaces.ENTITY_TYPES ),
 			lines = text.split( '\n' ),
 			matches;
 
 		var self = this;
-		$.each( lines, function( index, line ) {
+		$.each( lines, function ( index, line ) {
 			// PREFIX wd: <http://www.wikidata.org/entity/>
 			if ( ( matches = line.match( /(PREFIX) (\S+): <([^>]+)>/ ) ) ) {
 				if ( self._rdfNamespaces.ENTITY_TYPES[matches[3]] ) {
