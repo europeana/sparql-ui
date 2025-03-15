@@ -1,13 +1,10 @@
-( function( $, CONFIG, moment ) {
+( function ( $, CONFIG, moment ) {
 	'use strict';
 
-	$.when(
-		$.ready,
-		CONFIG.getConfig()
-	)
-	.then( function ( _, config ) {
+	$.when( CONFIG.getConfig(), $.ready ).then( function ( config ) {
 		var wb = wikibase.queryService,
 			lang = Cookies.get( 'lang' ) ? Cookies.get( 'lang' ) : config.language,
+			banner = config.banners[config.bannerName] || null,
 			app;
 
 		function setExamplesHelpLink( url ) {
@@ -44,14 +41,23 @@
 
 			$.when(
 				config.i18nLoad( lang )
-			).done( function() {
+			).done( function () {
 				$( '.wikibase-queryservice' ).i18n();
 				$( '#keyboardShortcutHelpModal' ).i18n();
-				$( '.wdqs-app-query-builder-banner-content' ).i18n();
-				$( '.wdqs-app-query-builder-banner-content a' ).attr(
-					'href',
-					$( '.query-builder-toggle' ).attr( 'href' )
-				);
+
+				if ( banner ) {
+					$( '.' + banner.i18nKey ).i18n();
+				}
+
+				if ( config.bannerName === 'query-builder' ) {
+					// If the query builder banner message exists, update the link to the correct
+					// language of query builder
+					$( '.wdqs-app-query-builder-banner-content a' ).attr(
+						'href',
+						$( '.query-builder-toggle' ).attr( 'href' )
+					);
+				}
+
 				$( 'html' ).attr( { lang: lang, dir: $.uls.data.getDir( lang ) } );
 				app.resizeNavbar();
 				if ( callback ) {
@@ -85,9 +91,11 @@
 
 		var isTopWindow = window.top === window;
 
+		var tooltipRepository = wb.ui.editor.tooltip.TooltipRepository( api, lang, $ );
 		var rdfHint = new wb.ui.editor.hint.Rdf( api ),
-				rdfTooltip = new wb.ui.editor.tooltip.Rdf( api, null, config.api.sparql.uri),
-				editor = new wb.ui.editor.Editor( rdfHint, null, rdfTooltip, { focus: isTopWindow }, config.api.sparql );
+			rdfTooltip = new wb.ui.editor.tooltip.Rdf( tooltipRepository, api, null, config.api.sparql.uri ),
+			editor = new wb.ui.editor.Editor( rdfHint, null, rdfTooltip, { focus: isTopWindow }, config.api.sparql );
+
 
 		wb.RdfNamespaces.initBasedOnEnvironment ( config.api.sparql.uri, config.api.rdfNamespaces );
 		if ( config.prefixes ) {
@@ -100,11 +108,12 @@
 
 		setLanguage( lang, false, afterLanguageChange );
 
-		languageSelector.setChangeListener( function( lang ) {
+		languageSelector.setChangeListener( function ( lang ) {
 			api.setLanguage( lang );
 			sparqlApi.setLanguage( lang );
 			sparqlApiHelper.setLanguage( lang );
 			querySamplesApi.setLanguage( lang );
+			tooltipRepository.setLanguage( lang );
 			setLanguage( lang, true, afterLanguageChange );
 		} );
 
@@ -118,7 +127,7 @@
 			codeSamplesApi,
 			shortenApi,
 			config.api['query-builder'].server,
-			config.showBanner
+			banner
 		);
 	} );
 
