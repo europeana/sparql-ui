@@ -15,5 +15,5 @@
 		"scvs": "PREFIX scvs: <http://rdfs.org/sioc/services#>",
 		"skos": "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>",
 		"wgs84_pos": "PREFIX wgs84_pos:<http://www.w3.org/2003/01/geo/wgs84_pos#>",
-		"xsd": "PREFIX xsd: <http://www.w3.org/2001"
+		"xsd": "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>"
 }
