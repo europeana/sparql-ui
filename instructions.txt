@@ -18,13 +18,17 @@ In the custom-config.json override the api.sparql.uri property to be: "https://s
 ### Code location
 The code is located in the /opt/sparql-ui/sparql-ui dir.
 
-### Deploy a new code (new branch or similar)
+### Deploy a new code (new branch or similar) to the AIT test server
 - pull the latest changes: git pull origin <branch_name>
 - start the app in a background mode: nohup ./startSparqlUi.sh > sparqlUiOutput.txt 2>&1 (the .sh file may need the exec permission, so add it with: chmod +x startSparqlUi.sh)
 - clear cache for the app page to see the new changes (here some help https://www.youtube.com/watch?v=vcCpHNp2SkA) 
 
-For the docker, there is also a .dockerignore file, used to tell which files to ignore, like node_modules, that are created by executing commands in the Dockerfile, and therefore
-does not need copying.
+### For the docker, there is also a .dockerignore file, used to tell which files to ignore. To create a docker image,
+first run the 2 commands:
+- npm ci
+- npm run only_build
+The 2 commands will create the build folder and the npde_modules folder which are needed in the docker image.
+Then the Dockerfile can run to create the image.
 
 ### When modifying the source code please note that the code is written in a way to support both the "wikidata.org" and "europeana" sparql-ui, which is decided by the propery 
 api.sparql.uri in the default-config.json which is overriden by the custom-config.json. So please note when you change the code, to have that in mind, and e.g. if some ui elements 
