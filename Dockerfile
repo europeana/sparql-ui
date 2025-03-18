@@ -5,13 +5,11 @@ FROM node:23
 WORKDIR /app
 
 # COPY the current content to /app folder structure
-COPY . /app/
-
-# download all the dependencies from package.json (needed also to run next command, which runs grunt)
-RUN npm install
-
-# Run a only_build script from the package.json (grunt build)
-RUN npm run only_build
+COPY ./build/ /app/
+COPY package.json /app/
+COPY custom-config.json /app/
+COPY ./europeana /app/europeana
+COPY ./node_modules /app/node_modules
 
 # EXPOSE our port
 EXPOSE 8282
