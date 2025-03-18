@@ -2,11 +2,11 @@ var wikibase = window.wikibase || {};
 wikibase.queryService = wikibase.queryService || {};
 wikibase.queryService.ui = wikibase.queryService.ui || {};
 
-wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
+wikibase.queryService.ui.App = ( function ( $, window, _, Cookies, moment ) {
 	'use strict';
 
 	var TRACKING_NAMESPACE = 'wikibase.queryService.ui.app.',
-		DEFAULT_QUERY_WIKIDATA = 'SELECT * WHERE {  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } } LIMIT 100',
+		DEFAULT_QUERY_WIKIDATA = 'SELECT * WHERE {  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],mul,en". } } LIMIT 100',
 		DEFAULT_QUERY_EUROPEANA = 'PREFIX edm: <http://www.europeana.eu/schemas/edm/>' +
 		 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>' +
 		 'SELECT ?Agent WHERE { ?Agent rdf:type edm:Agent } LIMIT 3';
@@ -32,7 +32,14 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	 * @param {wikibase.queryService.api.CodeSamples} codeSamplesApi
 	 * @param {wikibase.queryService.api.UrlShortener} shortUrlApi
 	 * @param {string} queryBuilderUrl
-	 * @param {boolean} showBanner
+	 * @param {object|null} banner Banner configuration from the (default or custom) config,
+	 * with the properties (if set):
+	 * @param {string} banner.default Default contents of the banner (HTML),
+	 * before i18n has been loaded.
+	 * @param {string} banner.storageKey Cookie name where to store
+	 * whether the banner was dismissed previously.
+	 * @param {string} banner.i18nKey Name of an i18n message with the banner contents (HTML).
+	 * The message key is also reused as the class attribute of the banner element in the DOM.
 	 */
 	function SELF(
 		$element,
@@ -44,7 +51,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 		codeSamplesApi,
 		shortUrlApi,
 		queryBuilderUrl,
-		showBanner
+		banner
 	) {
 		this._$element = $element;
 		this._editor = editor;
@@ -55,7 +62,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 		this._codeSamplesApi = codeSamplesApi;
 		this._shorten = shortUrlApi;
 		this._queryBuilderUrl = queryBuilderUrl;
-		this._showBanner = showBanner;
+		this._banner = banner;
 
 		this._init();
 	}
@@ -161,7 +168,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	 *
 	 * @private
 	 */
-	SELF.prototype._init = function() {
+	SELF.prototype._init = function () {
 		if ( !this._trackingApi ) {
 			this._trackingApi = new wikibase.queryService.api.Tracking();
 		}
@@ -215,10 +222,10 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._initApp = function() {
+	SELF.prototype._initApp = function () {
 		var self = this;
 
-		$( window ).keydown( function( e ) {
+		$( window ).keydown( function ( e ) {
 			return self._keyboardShortcut( e );
 		} );
 
@@ -237,14 +244,13 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 		}
 
 		// render the banner
-		if ( this._showBanner ) {
+		if ( this._banner ) {
 			var bannerContent = $( '<span>' )
-				.attr( 'data-i18n', '[html]wdqs-app-query-builder-banner-content' )
-				.addClass( 'wdqs-app-query-builder-banner-content' )
-				.html( 'Do you need help creating a query? You can build queries without ' +
-					'having to write SPARQL in the new <a>Query Builder</a>.' );
+				.attr( 'data-i18n', '[html]' + this._banner.i18nKey )
+				.addClass( this._banner.i18nKey )
+				.html( this._banner.default );
 			new wikibase.queryService.ui.Banner(
-				'survey2021Banner',
+				this._banner.storageKey,
 				renderBanner,
 				onBannerDismiss,
 				true,
@@ -261,7 +267,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 			}
 		} );
 
-		$( window ).on( 'resize', function() {
+		$( window ).on( 'resize', function () {
 			self._toggleLabelOnResize();
 			self._toggleBrandIconOnResize();
 			self._updateQueryEditorSize();
@@ -285,7 +291,9 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	 */
 	SELF.prototype._calculateNavBarWidth = function () {
 		var totalLeftNavBarWidth = 0;
-		$( '#left-navbar li' ).each( function () { totalLeftNavBarWidth += $( this ).width(); } );
+		$( '#left-navbar li' ).each( function () {
+			totalLeftNavBarWidth += $( this ).width();
+		} );
 		// 30px here is .navbar-collapse's padding-left plus padding-right after collapse
 		this._maximumWidthBeforeLineBroke = 30 + totalLeftNavBarWidth;
 
@@ -305,7 +313,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._toggleLabelOnResize = function( e ) {
+	SELF.prototype._toggleLabelOnResize = function ( e ) {
 		var self = this;
 
 		// To prevent getting .position and .width when the navbar is hidden
@@ -334,7 +342,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._toggleBrandIconOnResize = function( e ) {
+	SELF.prototype._toggleBrandIconOnResize = function ( e ) {
 		// Hide site name when the window width is way too small
 		$( '.navbar-brand a span' ).css( 'vertical-align', 'middle' );
 		if ( ( $( '.navbar-brand a span' ).position().top - $( '.navbar-brand a img' ).position().top ) > 30 ) {
@@ -347,10 +355,16 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._keyboardShortcut = function( e ) {
+	SELF.prototype._keyboardShortcut = function ( e ) {
 		if ( ( e.ctrlKey || e.metaKey ) && e.key === 'Enter' ) {
 			// e.metaKey is used for Mac (https://stackoverflow.com/a/21996827)
 			$( 'button#execute-button' ).click();
+			return false;
+		}
+
+		if ( ( e.ctrlKey || e.metaKey ) && e.key === 'Escape' && !$( 'button#cancel-button' ).prop( 'disabled' ) ) {
+			// e.metaKey is used for Mac (https://stackoverflow.com/a/21996827)
+			$( 'button#cancel-button' ).click();
 			return false;
 		}
 
@@ -370,12 +384,13 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._KeyboardShortcutKeys = function( e ) {
+	SELF.prototype._KeyboardShortcutKeys = function ( e ) {
 
 		if ( e.ctrlKey || e.metaKey || e.altKey ) {
 			return false;
 		}
 
+		/* eslint-disable max-statements-per-line */
 		var keys = {
 			'?': function () { $( '#keyboardShortcutHelpModal' ).modal( 'toggle' ); },
 			i: function () { $( '.CodeMirror textarea' ).focus(); },
@@ -387,6 +402,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 			h: function () { $( 'button#help-toggle' ).click(); },
 			l: function () { $( 'a#language-toggle' ).click(); }
 		};
+		/* eslint-enable max-statements-per-line */
 
 		if ( e.key in keys ) {
 			keys[e.key]();
@@ -399,12 +415,12 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._initEditor = function() {
+	SELF.prototype._initEditor = function () {
 		var self = this;
 
 		this._editor.fromTextArea( this._$element.find( '.queryEditor' )[0] );
 
-		this._editor.registerCallback( 'change', function( editor, changeObj ) {
+		this._editor.registerCallback( 'change', function ( editor, changeObj ) {
 			if ( changeObj.text[0] === ':' ) {
 				var $help = $( '<a target="_blank" rel="noopener" href="https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:SPARQL_query_service/Wikidata_Query_Help/SPARQL_Editor#Code_Completion">' )
 					.append( $.i18n( 'wdqs-app-footer-help' ) );
@@ -422,7 +438,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype.resizableQueryHelper = function() {
+	SELF.prototype.resizableQueryHelper = function () {
 		$( '.query-helper' ).resizable( {
 			handleSelector: '.splitter',
 			resizeHeight: false,
@@ -432,13 +448,13 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 		} );
 	};
 
-	SELF.prototype._initQueryHelper = function() {
+	SELF.prototype._initQueryHelper = function () {
 		var self = this;
 
 		if ( !this._queryHelper ) {
 			this._queryHelper = new wikibase.queryService.ui.queryHelper.QueryHelper();
 		}
-		this._queryHelper.setChangeListener( function( ve ) {
+		this._queryHelper.setChangeListener( function ( ve ) {
 			self._editor.setValue( ve.getQuery() );
 
 			_.debounce( function () {
@@ -448,11 +464,10 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 		this.resizableQueryHelper();
 		if ( Cookies.get( COOKIE_SHOW_QUERY_HELPER ) === 'true' ) {
 			$( '.query-helper' ).removeClass( 'query-helper-hidden' );
-			$( '.query-helper-tag-cloud' ).removeClass( 'query-helper-hidden' );
 		}
 
 		if ( this._editor ) {
-			this._editor.registerCallback( 'change', _.debounce( function() {
+			this._editor.registerCallback( 'change', _.debounce( function () {
 				if ( self._editor.getValue() === self._queryHelper.getQuery() ) {
 					return;
 				}
@@ -466,7 +481,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 			self._updateQueryEditorSize();
 		}, 100 ) );
 
-		$( '.query-helper .panel-heading .close' ).click( function() {
+		$( '.query-helper .panel-heading .close' ).click( function () {
 			Cookies.set( COOKIE_SHOW_QUERY_HELPER, false );
 			self._hideQueryHelper();
 			self._track( 'buttonClick.queryHelperTrigger.close' );
@@ -476,7 +491,6 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 		$( '.query-helper-trigger' ).click( function () {
 			var visible = $( '.query-helper' ).is( ':visible' );
 			$( '.query-helper' ).toggleClass( 'query-helper-hidden', visible );
-			$( '.query-helper-tag-cloud' ).toggleClass( 'query-helper-hidden' );
 			Cookies.set( COOKIE_SHOW_QUERY_HELPER, !visible );
 			self._updateQueryEditorSize();
 			self._track( 'buttonClick.queryHelperTrigger.' + ( visible ? 'close' : 'open' ) );
@@ -486,13 +500,12 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 		window.setTimeout( $.proxy( this._drawQueryHelper, this ), 500 );
 	};
 
-	SELF.prototype._hideQueryHelper = function() {
+	SELF.prototype._hideQueryHelper = function () {
 		$( '.query-helper' ).addClass( 'query-helper-hidden' );
-		$( '.query-helper-tag-cloud' ).addClass( 'query-helper-hidden' );
 		this._updateQueryEditorSize();
 	};
 
-	SELF.prototype._setUnparsable = function( changeTo ) {
+	SELF.prototype._setUnparsable = function ( changeTo ) {
 		if ( changeTo ) {
 			this._isQueryUnparsable = true;
 			$( '#format-button' ).addClass( 'disabled' );
@@ -502,7 +515,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 		}
 	};
 
-	SELF.prototype._drawQueryHelper = function() {
+	SELF.prototype._drawQueryHelper = function () {
 		try {
 			var defaultQuery = DEFAULT_QUERY_EUROPEANA;
 			if(this._sparqlApi.getServiceUri().includes("wikidata.org")) {
@@ -533,12 +546,12 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._updateQueryHelperMinWidth = function() {
+	SELF.prototype._updateQueryHelperMinWidth = function () {
 		var $queryHelper = $( '.query-helper' ),
 			$tables = $queryHelper.find( 'table' ),
 			tableWidth = _.max( _.map(
 				$tables,
-				function( e ) {
+				function ( e ) {
 					return $( e ).width();
 				}
 			) );
@@ -556,7 +569,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._updateQueryEditorSize = function() {
+	SELF.prototype._updateQueryEditorSize = function () {
 		if ( this._editor ) {
 			// set CodeMirror width to container width determined by Flex
 			this._editor._editor.setSize( 0, null ); // unset width so container width is unaffected by CodeMirror
@@ -567,21 +580,21 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._initRdfNamespaces = function() {
+	SELF.prototype._initRdfNamespaces = function () {
 		var category,
 			select,
 			ns,
 			container = $( '.namespace-shortcuts' ),
 			namespaces = wikibase.queryService.RdfNamespaces.NAMESPACE_SHORTCUTS;
 
-		container.click( function( e ) {
+		container.click( function ( e ) {
 			e.stopPropagation();
 		} );
 
 		// add namespaces to dropdowns
 		for ( category in namespaces ) {
 			select = $( '<select>' ).attr( 'class', 'form-control' ).append(
-					$( '<option>' ).text( category ) ).appendTo( container );
+				$( '<option>' ).text( category ) ).appendTo( container );
 			for ( ns in namespaces[category] ) {
 				select.append(
 					$( '<option>' ).text( ns ).attr( 'value', namespaces[category][ns] )
@@ -593,7 +606,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._initQuery = function() {
+	SELF.prototype._initQuery = function () {
 		if ( window.location.hash !== '' ) {
 			if ( location.hash.indexOf( '#result#' ) === 0 ) {
 				location.hash = location.hash.replace( '#result#', '#' );
@@ -610,17 +623,17 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._initDataUpdated = function() {
+	SELF.prototype._initDataUpdated = function () {
 		var self = this,
 			$label = $( '.dataUpdated' );
 
-		var updateDataStatus = function() {
-			self._sparqlApi.queryDataUpdatedTime().done( function( time, difference ) {
+		var updateDataStatus = function () {
+			self._sparqlApi.queryDataUpdatedTime().done( function ( time, difference ) {
 				var labelClass = 'list-group-item-danger';
 				if ( difference <= 60 * 2 ) {
 					labelClass = 'list-group-item-success';
 				} else if ( difference <= 60 * 15 ) {
-					labelClass =  'list-group-item-warning';
+					labelClass = 'list-group-item-warning';
 				}
 
 				$label.html( $( '<a>' ).addClass( 'fa fa-refresh badge ' + labelClass ).html( ' ' ) );
@@ -631,11 +644,11 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 
 		window.setInterval( updateDataStatus, 10 * 60 * 1000 );
 
-		$label.hover( function() {
+		$label.hover( function () {
 			updateDataStatus();
 
 			var e = $( this );
-			self._sparqlApi.queryDataUpdatedTime().done( function( time, difference ) {
+			self._sparqlApi.queryDataUpdatedTime().done( function ( time, difference ) {
 				var text = moment.duration( -difference, 'seconds' ).humanize( true ),
 					title = time,
 					badge = '<span class="badge">' + text + '</span>';
@@ -647,12 +660,12 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 					placement: 'top',
 					content: $.i18n( 'wdqs-app-footer-updated-ago', badge )
 				} );
-			} ).fail( function() {
+			} ).fail( function () {
 				e.popover( {
 					content: '[unable to connect]'
 				} );
 			} );
-		}, function() {
+		}, function () {
 			var e = $( this );
 			e.popover( 'destroy' );
 		} );
@@ -661,7 +674,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._isEmptyQuery = function() {
+	SELF.prototype._isEmptyQuery = function () {
 		if ( this._editor.getValue() === '' ) {
 			return true;
 		}
@@ -670,15 +683,16 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._initHandlers = function() {
+	SELF.prototype._initHandlers = function () {
 		var self = this;
 		$( '#query-form' ).submit( $.proxy( this._handleQuerySubmit, this ) );
+		$( '#cancel-button' ).on( 'click', $.proxy( this._handleQueryCancel, this ) );
 		$( '.namespace-shortcuts' ).on( 'change', 'select',
-				$.proxy( this._handleNamespaceSelected, this ) );
+			$.proxy( this._handleNamespaceSelected, this ) );
 
-		$( '.addPrefixes' ).click( function() {
+		$( '.addPrefixes' ).click( function () {
 			var standardPrefixes = wikibase.queryService.RdfNamespaces.STANDARD_PREFIXES,
-				prefixes = Object.keys( standardPrefixes ).map( function( x ) {
+				prefixes = Object.keys( standardPrefixes ).map( function ( x ) {
 					return standardPrefixes[x];
 				} ).join( '\n' );
 
@@ -686,7 +700,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 			self._track( 'buttonClick.addPrefixes' );
 		} );
 
-		$( '#format-button' ).click( function() {
+		$( '#format-button' ).click( function () {
 			self._drawQueryHelper();
 			if ( self._isQueryUnparsable !== true ) {
 				self._editor.setValue( self._queryHelper.getQuery() );
@@ -694,24 +708,24 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 			self._track( 'buttonClick.standardizeFormat' );
 		} );
 
-		$( '[data-target="#QueryExamples"]' ).click( function() {
+		$( '[data-target="#QueryExamples"]' ).click( function () {
 			self._track( 'buttonClick.examples' );
 		} );
 
-		$( '#clear-button' ).click( function() {
+		$( '#clear-button' ).click( function () {
 			self._editor.setValue( '' );
 			self._drawQueryHelper();
 			self._track( 'buttonClick.clear' );
 		} );
 
-		$( '.restore' ).click( function( e ) {
+		$( '.restore' ).click( function ( e ) {
 			self._track( 'buttonClick.restore' );
 			e.preventDefault();
 			self._editor.restoreValue();
 			self._drawQueryHelper();
 		} );
 
-		$( '.fullscreen-toggle' ).click( function( e ) {
+		$( '.fullscreen-toggle' ).click( function ( e ) {
 			self._track( 'buttonClick.fullscreen' );
 			e.preventDefault();
 			self._toggleFullscreen();
@@ -756,7 +770,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._initPopovers = function() {
+	SELF.prototype._initPopovers = function () {
 		var self = this;
 
 		$( '.shortUrlTrigger.query' ).clickover( {
@@ -764,11 +778,11 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 			'global_close': true,
 			'html': true,
 			'sanitize': false,
-			'content': function() {
+			'content': function () {
 				self._updateQueryUrl();
 				return self._shorten.shorten( window.location.href );
 			}
-		} ).click( function() {
+		} ).click( function () {
 			self._track( 'buttonClick.shortUrlQuery' );
 		} );
 
@@ -776,7 +790,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 			'placement': 'left',
 			'global_close': true,
 			'html': true,
-			'content': function() {
+			'content': function () {
 				self._updateQueryUrl();
 
 				var b = '';
@@ -793,13 +807,13 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 						'referrerpolicy="origin" ' +
 						'sandbox="allow-scripts allow-same-origin allow-popups" ' +
 						'></iframe>'
-				).click( function() {
+				).click( function () {
 					$html.select();
 				} );
 
 				return $html;
 			}
-		} ).click( function() {
+		} ).click( function () {
 			self._track( 'buttonClick.embedResult' );
 		} );
 	};
@@ -807,7 +821,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._handleQuerySubmit = function( e ) {
+	SELF.prototype._handleQuerySubmit = function ( e ) {
 		var self = this;
 		this._track( 'buttonClick.execute' );
 		if ( !this._hasRunFirstQuery ) {
@@ -829,15 +843,16 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 			$( '#execute-button' ).prop( 'disabled', false );
 		} else {
 			$( '#empty-query-error' ).hide();
+			$( '#cancel-button' ).prop( 'disabled', false );
 			this._resultView.draw( this._editor.getValue() ).catch( function ( error ) {
 				try {
 					self._editor.highlightError( error );
 				} catch ( err ) {
 					// ignore
 				}
-			} )
-			.then( function () {
+			} ).then( function () {
 				$( '#execute-button' ).prop( 'disabled', false );
+				$( '#cancel-button' ).prop( 'disabled', true );
 			} );
 		}
 	};
@@ -845,7 +860,18 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._handleNamespaceSelected = function( e ) {
+	SELF.prototype._handleQueryCancel = function ( e ) {
+		e.preventDefault();
+		this._track( 'buttonClick.cancel' );
+		$( '#cancel-button' ).prop( 'disabled', true );
+		this._resultView.cancel();
+		$( '#execute-button' ).prop( 'disabled', false );
+	};
+
+	/**
+	 * @private
+	 */
+	SELF.prototype._handleNamespaceSelected = function ( e ) {
 		var ns,
 			uri = e.target.value,
 			current = this._editor.getValue();
@@ -862,13 +888,13 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._updateQueryUrl = function() {
+	SELF.prototype._updateQueryUrl = function () {
 		if ( this._isHistoryDisabled ) {
 			return;
 		}
 
 		var hash = encodeURIComponent( this._editor.getValue() );
-		hash = hash.replace( /[!'()*]/g, function( c ) {
+		hash = hash.replace( /[!'()*]/g, function ( c ) {
 			return '%' + c.charCodeAt( 0 ).toString( 16 );
 		} );
 
@@ -884,7 +910,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._updateTitle = function() {
+	SELF.prototype._updateTitle = function () {
 		var title = this._editor.getValue().match( /#title:(.*)/ );
 
 		if ( title && title[ 1 ] ) {
@@ -897,7 +923,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._toast = function( $el, id ) {
+	SELF.prototype._toast = function ( $el, id ) {
 		var cookie = 'hide-toast-' + id;
 		if ( Cookies.get( cookie ) ) {
 			return;
@@ -918,7 +944,7 @@ wikibase.queryService.ui.App = ( function( $, window, _, Cookies, moment ) {
 	/**
 	 * @private
 	 */
-	SELF.prototype._track = function( metricName, value, valueType ) {
+	SELF.prototype._track = function ( metricName, value, valueType ) {
 		this._trackingApi.track( TRACKING_NAMESPACE + metricName, value, valueType );
 	};
 
