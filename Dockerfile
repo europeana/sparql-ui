@@ -1,5 +1,5 @@
 # Select the Node Module
-FROM node:23
+FROM node:node:23.10-alpine3.21
 
 # Add the working Directory
 WORKDIR /app

@@ -14,4 +14,7 @@ labels:
   - includeSelectors: true
     pairs:
       app: sparql-ui
-
+configMapGenerator:
+  - name: custom-config
+    files:
+      - custom-config-deployment.json
