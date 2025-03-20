@@ -17,4 +17,4 @@ labels:
 configMapGenerator:
   - name: custom-config-configmap
     files:
-      - custom-config-deployment.json
+      - custom-config.json
