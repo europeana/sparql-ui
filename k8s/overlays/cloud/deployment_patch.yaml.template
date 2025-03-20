@@ -21,7 +21,9 @@ spec:
               cpu: "${CPU_LIMIT}m"
           volumeMounts:
             - name: custom-config
-            mountPath: "/app/custom-config.json"    
+              mountPath: "/app/custom-config.json"
+              readOnly: true
+              subPath: custom-config.json    
       volumes:
         - name: custom-config
           configMap:
