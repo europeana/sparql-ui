@@ -19,3 +19,12 @@ spec:
             limits:
               memory: "${MEMORY_LIMIT}M"
               cpu: "${CPU_LIMIT}m"
+          volumeMounts:
+            - name: custom-config
+              mountPath: "/app/custom-config.json"
+              subPath: custom-config.json
+              readOnly: true
+      volumes:
+        - name: custom-config
+          configMap:
+            name: custom-config-configmap
