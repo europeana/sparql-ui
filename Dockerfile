@@ -7,7 +7,6 @@ WORKDIR /app
 # COPY the current content to /app folder structure
 COPY ./build/ /app/
 COPY package.json /app/
-COPY custom-config.json /app/
 COPY ./europeana /app/europeana
 COPY ./node_modules /app/node_modules
 
