@@ -129,6 +129,7 @@
     "wdqs-action-malformed-query": "Query is malformed",
     "wdqs-action-empty-query": "Input a valid SPARQL query or choose an example query",
     "wdqs-action-server-error": "Server error",
+    "wdqs-action-server-unavailable": "SPARQL service temporary unavailable",
     "wdqs-action-unknow-error": "Unknown error",
     "wdqs-action-preview": "Result preview",
     "wdqs-result-map-layers-all": "All layers",

@@ -374,6 +374,9 @@ wikibase.queryService.ui.ResultView = ( function( $, download, window ) {
 		case codes.SERVER:
 			errorMessageKey = 'wdqs-action-server-error';
 			break;
+		case codes.SERVER_UNAVAILABLE:
+			errorMessageKey = 'wdqs-action-server-unavailable';
+			break;
 		default:
 			errorMessageKey = 'wdqs-action-unknow-error';
 			break;
