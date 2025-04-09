@@ -3,7 +3,9 @@
 
 	$.when( CONFIG.getConfig(), $.ready ).then( function ( config ) {
 		var wb = wikibase.queryService,
-			lang = Cookies.get( 'lang' ) ? Cookies.get( 'lang' ) : config.language,
+		    //hardcode language at the moment (for europeana)
+		    lang = "en",
+			//lang = Cookies.get( 'lang' ) ? Cookies.get( 'lang' ) : config.language,
 			banner = config.banners[config.bannerName] || null,
 			app;
 

@@ -10,6 +10,7 @@ wikibase.queryService.api.Sparql = ( function ( $ ) {
 			TIMEOUT: 10,
 			MALFORMED: 20,
 			SERVER: 30,
+			SERVER_UNAVAILABLE: 40,
 			UNKNOWN: 100
 		},
 		ERROR_MAP = {
@@ -213,12 +214,13 @@ wikibase.queryService.api.Sparql = ( function ( $ ) {
 			debug: request.responseText
 		};
 
+		//status code 0 essentially means no response		
 		if ( request.status === 0 || exception ) {
 			error.code = ERROR_CODES.SERVER;
 			error.message = exception.message;
 		}
 
-		try { // extract error from server response
+		try {//extract error from server response
 			var errorToMatch = error.debug.substring(
 				error.debug.indexOf( 'java.util.concurrent.ExecutionException:' )
 			);
@@ -238,7 +240,26 @@ wikibase.queryService.api.Sparql = ( function ( $ ) {
 			}
 		} catch ( e ) {
 		}
-
+		
+		//if the above extraction from the server response fails
+		if(error.code === ERROR_CODES.UNKNOWN) {
+			if (request.status === 400) {
+				error.code = ERROR_CODES.MALFORMED;
+			} else if ((request.status === 500 || request.status === 504) && 
+				(error.debug.toLowerCase().includes("timeout") || error.debug.toLowerCase().includes("timed out") || 
+				error.debug.toLowerCase().includes("time out") || error.debug.toLowerCase().includes("time-out"))) {
+				error.code = ERROR_CODES.TIMEOUT;
+				error.debug = error.debug + "\n\n" +
+				"The query took too long to run, likely due to resource-intensive operations such as DISTINCT or COUNT operations over a large \n" +
+				"result set, or you used complex filter operations like regex. Try running the query again, and if the issue persists, consider \n" +
+				"optimizing it by using less costly operations.";	
+			} else if (request.status === 500 || request.status === 502 || request.status === 503) {
+				error.code = ERROR_CODES.SERVER_UNAVAILABLE;
+				error.debug = error.debug + "\n\n" +
+				"The service may have exceeded its request limit. Please try again later.";
+			}
+		}
+		
 		this._error = error;
 	};
 
